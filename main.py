@@ -4,7 +4,7 @@ Diddi and Eli: A platformer game with scaling challenges.
 
 import pyxel
 
-from src import One, Two, Three, Four, Menu
+from src import stages_list
 
 
 class Main:
@@ -16,11 +16,14 @@ class Main:
 
     def __init__(self):
         pyxel.load("resource.pyxres")
-        self.situation = Menu()
+        self.situation = stages_list["menu"]
         pyxel.run(self.update, self.draw)
     
     def update(self):
         self.situation.update()
+        # If the situation "ends", jump into the next one
+        if self.situation.finished:
+            self.situation = stages_list[self.situation.next]
     
     def draw(self):
         self.situation.draw()
