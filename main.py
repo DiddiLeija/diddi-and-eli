@@ -22,8 +22,12 @@ class Main:
     def update(self):
         self.situation.update()
         # If the situation "ends", jump into the next one
+        # Also, keep memory of your player choice :)
         if self.situation.finished:
+            tmp = self.situation.player_choice
             self.situation = stages_list[self.situation.next]
+            self.situation.player_choice = tmp
+            del(tmp)  # we have to remove 'tmp' ASAP
     
     def draw(self):
         self.situation.draw()
