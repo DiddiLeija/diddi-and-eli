@@ -5,3 +5,6 @@ import pyxel
 def draw_text(text, x, y):
     pyxel.text(x, y, text, 1)
     pyxel.text(x+1, y, text, 7)
+
+def init_class(obj):
+    return obj()

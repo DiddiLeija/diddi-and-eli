@@ -5,6 +5,7 @@ Diddi and Eli: A platformer game with scaling challenges.
 import pyxel
 
 from src import stages_list
+from src.tools import init_class
 
 
 class Main:
@@ -16,7 +17,7 @@ class Main:
 
     def __init__(self):
         pyxel.load("resource.pyxres")
-        self.situation = stages_list["menu"]
+        self.situation = init_class(stages_list["menu"])
         pyxel.run(self.update, self.draw)
     
     def update(self):
@@ -25,7 +26,7 @@ class Main:
         # Also, keep memory of your player choice :)
         if self.situation.finished:
             tmp = self.situation.player_choice
-            self.situation = stages_list[self.situation.next]
+            self.situation = init_class(stages_list[self.situation.next])
             self.situation.player_choice = tmp
             del(tmp)  # we have to remove 'tmp' ASAP
     
