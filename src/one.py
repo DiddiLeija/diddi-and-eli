@@ -22,6 +22,6 @@ class One(BaseLevel):
         if self.check_reset():
             return None
     
-    def draw():
+    def draw(self):
         "pyxel-like 'update' function."
         pyxel.cls(0)
