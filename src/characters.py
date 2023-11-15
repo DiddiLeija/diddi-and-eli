@@ -13,9 +13,9 @@ import pyxel
 # project of mine, 'abandon-the-ship')
 
 # TODO: Verify these functions can be invoked
-#       from the level classes. Otherwise, we'll
+#       from the level classes. Otherwise, will we
 #       have to adapt the player's code or come
-#       up with a different solution.
+#       up with a different solution??
 
 SCROLL_BORDER_X = 80
 WALL_TILE_X = 4
@@ -72,6 +72,7 @@ class Player1:
     Diddi, Player 1, operated using WASD keys.
     """
     alive = True
+    bullets = []
 
     def __init__(self, x=0, y=0):
         self.x = x
@@ -128,12 +129,30 @@ class Player1:
                 return self.imagebank[4]
             # We're walking
             return random.choice(self.imagebank[5:7])
+    
+    def get_scroll_x(self):
+        """
+        This is just a 'bridge' between a player class and a
+        level class, where 'scroll_x' is vital but not directly present.
+        """
+        return scroll_x
+    
+    def check_bullets(self):
+        for i in self.bullets:
+            if not i.alive:
+                # TODO: Kill this object
+                pass
 
     def update(self):
         "Update and react to key controls."
+        self.check_bullets()
         if pyxel.btnp(self.key_bullet):
-            # TODO: fixme!
-            pass
+            if self.r_facing:
+                # Send a bullet to the right
+                self.bullets.append(Bullet(self.x, self.y))
+            else:
+                # Send a bullet to the left
+                self.bullets.append(Bullet(self.x, self.y, False))
         if pyxel.btnp(self.key_left):
             # TODO: fixme!
             self.r_facing = False
@@ -182,24 +201,40 @@ class Player2(Player1):
 # === Mobs ===
 
 
-class Onion:
+class BaseMob:
+    "Simple base for all the mobs."
+    alive = False
+
+class Onion(BaseMob):
     "Mobs who just walk but can fall from cliffs."
 
 class Robot(Onion):
     "Mobs who walk, without falling from cliffs, making then harder to defeat."
 
-class Slimehorn1:
+class Slimehorn1(BaseMob):
     "Mobs that stick to a surface (Down)."
     variant = False
 
-class Slimehorn2:
+class Slimehorn2(BaseMob):
     "Mobs that stick to a surface (Up)."
     variant = False
 
-class Slimehorn3:
+class Slimehorn3(BaseMob):
     "Mobs that stick to a surface (Left)."
     variant = False
 
-class Slimehorn4:
+class Slimehorn4(BaseMob):
     "Mobs that stick to a surface (Right)."
     variant = False
+
+
+# === Coins/bullets ===
+
+
+class Bullet:
+    "A bullet send by either Diddi or Eli and may damage enemies."
+    alive = False
+
+class Coin:
+    "A coin that gives you points to brag about."
+    alive = False
