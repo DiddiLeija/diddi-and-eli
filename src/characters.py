@@ -3,19 +3,19 @@ Submodule containing all the characters and their physics,
 including the main players (Diddi, Eli), the mobs (onions,
 slimehorns, robots, etc), coins, and NPCs.
 """
+# (Some of the functions/protocols were borrowed from
+#  another project of mine, 'abandon-the-ship')
+#
+# TODO: Get sure everything here can be invoked
+#       from the level classes. Otherwise, will we
+#       have to adapt the player's code, or even come
+#       up with a different solution???
 
 import random
 
 import pyxel
 
 # === Tool functions (physics, data, etc)
-# (Some of these were borrowed from another
-# project of mine, 'abandon-the-ship')
-
-# TODO: Verify these functions can be invoked
-#       from the level classes. Otherwise, will we
-#       have to adapt the player's code or come
-#       up with a different solution??
 
 SCROLL_BORDER_X = 80
 WALL_TILE_X = 4
@@ -44,10 +44,8 @@ scroll_x = 0
 def adjust_x(real_x):
     return scroll_x + real_x
 
-
 def get_tile(tile_x, tile_y):
     return pyxel.tilemap(1).pget(tile_x, tile_y)
-
 
 def detect_collision(x, y, dy):
     x1 = x // 8
@@ -63,6 +61,37 @@ def detect_collision(x, y, dy):
             if get_tile(xi, y1 + 1) in TILES_FLOOR:
                 return True
     return False
+
+def is_wall(x, y):
+    tile = get_tile(x // 8, y // 8)
+    return tile in TILES_FLOOR or tile[0] >= WALL_TILE_X
+
+def push_back(x, y, dx, dy):
+    abs_dx = abs(dx)
+    abs_dy = abs(dy)
+    if abs_dx > abs_dy:
+        sign = 1 if dx > 0 else -1
+        for _ in range(abs_dx):
+            if detect_collision(x + sign, y, dy):
+                break
+            x += sign
+        sign = 1 if dy > 0 else -1
+        for _ in range(abs_dy):
+            if detect_collision(x, y + sign, dy):
+                break
+            y += sign
+    else:
+        sign = 1 if dy > 0 else -1
+        for _ in range(abs_dy):
+            if detect_collision(x, y + sign, dy):
+                break
+            y += sign
+        sign = 1 if dx > 0 else -1
+        for _ in range(abs_dx):
+            if detect_collision(x + sign, y, dy):
+                break
+            x += sign
+    return x, y, dx, dy
 
 # === Players ===
 
@@ -146,6 +175,13 @@ class Player1:
     def update(self):
         "Update and react to key controls."
         self.check_bullets()
+        if not self.alive:
+            # NOTE: Why not putting 'self.check_bullets' after this block?
+            #       Well, what if, during multiplayer mode, one of the character
+            #       shoots a bullet and dies before such bullets finish their journey?
+            return
+        global scroll_x
+        self.prev_y = self.y
         if pyxel.btnp(self.key_bullet):
             if self.r_facing:
                 # Send a bullet to the right
@@ -154,11 +190,31 @@ class Player1:
                 # Send a bullet to the left
                 self.bullets.append(Bullet(self.x, self.y, False))
         if pyxel.btnp(self.key_left):
-            # TODO: fixme!
+            # Move to the left
+            self.dx = -2
             self.r_facing = False
         elif pyxel.btnp(self.key_right):
-            # TODO: fixme!
+            # Move to the right
+            self.dx = 2
             self.r_facing = True
+        self.dy = min(self.dy + 1, 3)
+        if pyxel.btnp(self.key_up) and not self.is_falling:
+            # Jump (instead of the fly-ish mechanics from previous games)
+            self.dy = -8  # TODO: Adjust this in order to achieve realistic jumps
+        # Now operate the movement
+        self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
+        if self.x < scroll_x:
+            self.x = scroll_x
+        if self.y < 0:
+            self.y = 0
+        self.dx = int(self.dx * 0.8)
+        self.is_falling = self.y > self.prev_y
+        # And finally, move the screen forward if needed
+        if self.x > scroll_x + SCROLL_BORDER_X:
+            # The 'scroll_x' stuff is located here, but may also happen
+            # in 'Player2.update' in either Eli-mode or multiplayer mode.
+            last_scroll_x = scroll_x
+            scroll_x = min(self.x - SCROLL_BORDER_X, 240 * 8)
     
     def draw(self):
         "Draw the character."

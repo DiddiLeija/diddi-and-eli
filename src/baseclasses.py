@@ -13,7 +13,7 @@ class BaseLevel(ABC):
     next = ""  # Where should we go after finishing
 
     def __init__(self):
-        pass
+        pyxel.camera()  # TODO: is this safe to do here??
 
     def check_quit(self):
         if pyxel.btnp(pyxel.KEY_Q):

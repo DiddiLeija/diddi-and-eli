@@ -13,9 +13,6 @@ class One(BaseLevel):
     a lot of enemies or tricky spots.
     """
 
-    def __init__(self):
-        pass
-
     def update(self):
         "Pyxel-like 'update' function."
         self.check_quit()

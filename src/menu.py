@@ -9,9 +9,6 @@ class Menu(BaseLevel):
     player_choice = 0
     player_choice_text = {0: "[1] Single (Diddi)", 1: "[2] Single (Eli)", 2: "[3] Multiplayer"}
 
-    def __init__(self):
-        pass
-
     def update(self):
         "Pyxel-like 'update' function."
         self.check_quit()
