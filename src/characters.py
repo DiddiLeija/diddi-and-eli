@@ -15,7 +15,20 @@ import random
 
 import pyxel
 
-# === Tool functions (physics, data, etc)
+# === Tool functions (physics, data, etc) ===
+
+__all__ = (
+    "Player1",
+    "Player2",
+    "Onion",
+    "Robot",
+    "Slimehorn1",
+    "Slimehorn2",
+    "Slimehorn3",
+    "Slimehorn4",
+    "Bullet",
+    "Coin"
+)
 
 SCROLL_BORDER_X = 80
 WALL_TILE_X = 4

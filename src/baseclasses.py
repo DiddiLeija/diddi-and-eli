@@ -3,6 +3,7 @@
 import pyxel
 
 from abc import ABC, abstractmethod
+from .characters import *
 
 class BaseLevel(ABC):
     "Base level."
@@ -14,6 +15,7 @@ class BaseLevel(ABC):
 
     def __init__(self):
         pyxel.camera()  # TODO: is this safe to do here??
+        # self.create_characters()
 
     def check_quit(self):
         if pyxel.btnp(pyxel.KEY_Q):
@@ -25,6 +27,14 @@ class BaseLevel(ABC):
             self.next = "menu"
             return True
         return False
+    
+    def create_characters(self):
+        if self.player_choice == 0:
+            self.player = [Player1(0, 0)]
+        elif self.player_choice == 1:
+            self.player = [Player2(0, 0)]
+        elif self.player_choice == 2:
+            self.player = [Player1(0, 0), Player2(0, 10)]
 
     @abstractmethod
     def update(self):
