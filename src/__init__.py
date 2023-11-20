@@ -1,6 +1,6 @@
 "Extra code/tools for the game."
 
-from . import menu, one # , two, three, four, five, six
+from . import menu, one # , two, three, four, five
 
 __all__ = ("stages_list")
 
@@ -9,7 +9,6 @@ Two = None  # two.Two
 Three = None  # three.Three
 Four = None  # four.Four
 Five = None  # five.Five
-Six = None  # six.Six
 # NOTE: Below I have the already-linked objects
 Menu = menu.Menu
 One = one.One
@@ -21,6 +20,5 @@ stages_list = {
     "three": Three,
     "four": Four,
     "five": Five,
-    "six": Six,
     "menu": Menu,
 }
