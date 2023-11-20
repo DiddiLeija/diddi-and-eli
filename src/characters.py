@@ -41,8 +41,8 @@ TILES_FLOOR = [
     (56, 8),   # Red bricks
     (40, 16),  # Sand - Up
     (40, 24),  # Sand - Down
-    (48, 16),  # White struct 1
-    (48, 24),  # White struct 2
+    (48, 16),  # Box 1
+    (48, 24),  # Box 2
     (56, 16),  # Dirt - Up
     (56, 24),  # Dirt - Down
     (0, 64),   # Gate (L, 1)
