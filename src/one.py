@@ -19,7 +19,8 @@ class One(BaseLevel):
         self.check_quit()
         if self.check_reset():
             return None
+        self.update_template()
     
     def draw(self):
         "pyxel-like 'update' function."
-        pyxel.cls(0)
+        self.draw_template()

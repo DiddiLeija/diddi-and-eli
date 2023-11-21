@@ -3,8 +3,11 @@ Submodule containing all the characters and their physics,
 including the main players (Diddi, Eli), the mobs (onions,
 slimehorns, robots, etc), coins, and NPCs.
 """
-# (Some of the functions/protocols were borrowed from
-#  another project of mine, 'abandon-the-ship')
+
+# Some of the functions/protocols were borrowed from
+# another project of mine, 'abandon-the-ship'. To be
+# honest, "Diddi and Eli" can be considered a spiritual
+# successor to "Abandon the ship!"...
 #
 # TODO: Get sure everything here can be invoked
 #       from the level classes. Otherwise, will we
@@ -180,10 +183,13 @@ class Player1:
         return scroll_x
     
     def check_bullets(self):
-        for i in self.bullets:
-            if not i.alive:
-                # TODO: Kill this object
-                pass
+        "Control bullets."
+        kills = list()
+        for i in range(len(self.bullets)):
+            if not self.bullets[i].alive:
+                kills.append(i)
+        for k in kills.sort(reverse=True):
+            self.bullets.pop(k)
 
     def update(self):
         "Update and react to key controls."

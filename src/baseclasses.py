@@ -35,6 +35,17 @@ class BaseLevel(ABC):
             self.player = [Player2(0, 0)]
         elif self.player_choice == 2:
             self.player = [Player1(0, 0), Player2(0, 10)]
+    
+    def update_template(self):
+        "Some update actions that should happen in (almost) every instance."
+        for p in self.player:
+            p.update()
+            for b in p.bullets:
+                b.update()
+    
+    def draw_template(self):
+        "Some drawing actions that should happen in (almost) every instance."
+        pyxel.cls(0)
 
     @abstractmethod
     def update(self):
