@@ -307,9 +307,43 @@ class Slimehorn4(BaseMob):
 
 
 class Bullet:
-    "A bullet send by either Diddi or Eli and may damage enemies."
+    "A bullet send by either Diddi or Eli, which may damage enemies."
     alive = False
+
+    def __init__(self, x, y, r_facing=True):
+        self.x = x
+        self.y = y
+        self.r_facing = r_facing
+        self.alive = True
+    
+    def update(self):
+        if not self.alive:
+            return
+        if self.r_facing:
+            self.x += 2
+        else:
+            self.x -= 2
+    
+    def draw(self):
+        if not self.alive:
+            return
+        pyxel.rect(self.x, self.y, 4, 2, 11)
+
 
 class Coin:
     "A coin that gives you points to brag about."
     alive = False
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.alive = True
+    
+    def update(self):
+        # We won't do anything at all here!
+        pass
+
+    def draw(self):
+        if not self.alive:
+            pass
+        pyxel.blt(self.x, self.y, 0, 0, 8, 8, 8, 0)
