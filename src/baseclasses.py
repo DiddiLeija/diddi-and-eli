@@ -12,10 +12,13 @@ class BaseLevel(ABC):
     players = None  # Amount of players involved
     finished = False  # Have we finished today? Can we go home now?
     next = ""  # Where should we go after finishing
+    lost = False  # Did we die??
+    enemies = list()  # The list with enemies/mobs
 
     def __init__(self):
-        pyxel.camera()  # TODO: is this safe to do here??
-        # self.create_characters()
+        # WARNING: is this safe to do here, or should we run these per instance?
+        pyxel.camera()
+        self.create_characters()
 
     def check_quit(self):
         if pyxel.btnp(pyxel.KEY_Q):
@@ -38,10 +41,24 @@ class BaseLevel(ABC):
     
     def update_template(self):
         "Some update actions that should happen in (almost) every instance."
+        anyone_here = False
         for p in self.player:
             p.update()
             for b in p.bullets:
                 b.update()
+                for e in self.enemies:
+                    # TODO: Check if a bullet hit a mob.
+                    pass
+            for e in self.enemies:
+                    # TODO: Check if a mob hit the player.
+                    pass
+            if p.alive:
+                anyone_here = True
+        if not anyone_here:
+            self.lost = True
+            return
+        for e in self.enemies:
+            e.update()
     
     def draw_template(self):
         "Some drawing actions that should happen in (almost) every instance."
@@ -53,4 +70,8 @@ class BaseLevel(ABC):
 
     @abstractmethod
     def draw(self):
+        pass
+
+    @abstractmethod
+    def create_characters(self):
         pass
