@@ -334,21 +334,42 @@ class Robot(BaseMob):
         v = random.choice([48, 56])
         pyxel.blt(self.x, self.y, 0, u, v, 8, 8, 0)
 
-class Slimehorn1(BaseMob):
+class SlimehornBase(BaseMob):
+    "Base class for slimehorns (see below)."
+    imgs = [tuple(), tuple()]
+    
+    def __init__(self, x, y, variant=False):
+        self.x = self.x
+        self.y = y
+        self.variant = variant
+    
+    def update(self):
+        # TODO: By now, Slimehorns won't move.
+        #       Let's try to give them some action
+        #       in a future version!
+        pass
+
+    def draw(self):
+        if not self.alive:
+            return
+        combo = self.imgs[0] if self.variant else self.imgs[1]
+        pyxel.blt(self.x, self.y, 0, combo[0], combo[2], 8, 8, 0)
+
+class Slimehorn1(SlimehornBase):
     "Mobs that stick to a surface (Down)."
-    variant = False
+    imgs = [(32, 48), (48, 48)]
 
-class Slimehorn2(BaseMob):
+class Slimehorn2(SlimehornBase):
     "Mobs that stick to a surface (Up)."
-    variant = False
+    imgs = [(32, 56), (48, 56)]
 
-class Slimehorn3(BaseMob):
+class Slimehorn3(SlimehornBase):
     "Mobs that stick to a surface (Left)."
-    variant = False
+    imgs = [(40, 48), (56, 48)]
 
-class Slimehorn4(BaseMob):
+class Slimehorn4(SlimehornBase):
     "Mobs that stick to a surface (Right)."
-    variant = False
+    imgs = [(40, 56), (56, 56)]
 
 
 # === Coins/bullets ===
