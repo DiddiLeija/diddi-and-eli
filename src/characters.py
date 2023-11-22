@@ -5,8 +5,10 @@ slimehorns, robots, etc), coins, and NPCs.
 """
 
 # Some of the functions/protocols were borrowed from
-# another project of mine, 'abandon-the-ship'. To be
-# honest, "Diddi and Eli" can be considered a spiritual
+# another project of mine, "Abandon the ship!", which
+# is based in Pyxel example #10, "Platformer".
+# 
+# To be honest, "Diddi and Eli" can be considered a spiritual
 # successor to "Abandon the ship!"...
 #
 # TODO: Get sure everything here can be invoked
@@ -280,11 +282,57 @@ class BaseMob:
     "Simple base for all the mobs."
     alive = False
 
-class Onion(BaseMob):
-    "Mobs who just walk but can fall from cliffs."
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.dx = 0
+        self.dy = 0
+        self.alive = True
+    
+    def update(self):
+        pass
 
-class Robot(Onion):
-    "Mobs who walk, without falling from cliffs, making then harder to defeat."
+    def draw(self):
+        pass
+
+class Onion(BaseMob):
+    "Mobs that just walk but can fall from cliffs."
+    direction = -1
+
+    def update(self):
+        self.dx = self.direction
+        if self.direction < 0 and is_wall(self.x - 1, self.y + 4):
+            self.direction = 1
+        elif self.direction > 0 and is_wall(self.x + 8, self.y + 4):
+            self.direction = -1
+        self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
+    
+    def draw(self):
+        u = 16 if self.direction < 0 else 24
+        v = random.choice([48, 56])
+        pyxel.blt(self.x, self.y, 0, u, v, 8, 8, 0)
+
+class Robot(BaseMob):
+    "Mobs that walk, without falling from cliffs, making then harder to defeat."
+    direction = -1
+
+    def update(self):
+        self.dx = self.direction
+        if is_wall(self.x, self.y + 8) or is_wall(self.x + 7, self.y + 8):
+            if self.direction < 0 and (
+                is_wall(self.x - 1, self.y + 4) or not is_wall(self.x - 1, self.y + 8)
+            ):
+                self.direction = 1
+            elif self.direction > 0 and (
+                is_wall(self.x + 8, self.y + 4) or not is_wall(self.x + 7, self.y + 8)
+            ):
+                self.direction = -1
+        self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
+    
+    def draw(self):
+        u = 0 if self.direction < 0 else 8
+        v = random.choice([48, 56])
+        pyxel.blt(self.x, self.y, 0, u, v, 8, 8, 0)
 
 class Slimehorn1(BaseMob):
     "Mobs that stick to a surface (Down)."
