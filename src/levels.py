@@ -1,3 +1,5 @@
+"Library containing all the level classes, which honestly are pretty simple."
+
 import pyxel
 
 from .baseclasses import BaseLevel
