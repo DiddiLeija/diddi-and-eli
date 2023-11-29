@@ -17,7 +17,7 @@ class Main:
 
     def __init__(self):
         pyxel.load("resource.pyxres")
-        self.situation = init_class(stages_list["menu"])
+        self.situation = init_class(stages_list["menu"], None)
         pyxel.run(self.update, self.draw)
     
     def update(self):
@@ -26,8 +26,7 @@ class Main:
         # Also, keep memory of your player choice :)
         if self.situation.finished:
             tmp = self.situation.player_choice
-            self.situation = init_class(stages_list[self.situation.next])
-            self.situation.player_choice = tmp
+            self.situation = init_class(stages_list[self.situation.next], tmp)
             del(tmp)  # we have to remove 'tmp' ASAP
     
     def draw(self):

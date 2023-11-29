@@ -21,16 +21,18 @@ class BaseLevel(ABC):
     draw_v = 0  # The 'v' parameter used in 'pyxel.bltm', during level drawing
     music_vol = 0
 
-    # TODO: Only use the variables stored at "src/characters",
-    #       or only use variables from here.
-    SCROLL_BORDER_X = 80
-    scroll_x = 0
-
-    def __init__(self):
-        # NOTE: is this safe to do here, or should we run these per instance?
-        pyxel.camera()
+    def __init__(self, player_choice):
+        # pyxel.camera()
+        self.player_choice = player_choice
+        self.startup()
+    
+    def startup(self):
+        # FIXME: Only use the variables stored at "src/characters",
+        #       or only use variables from here.
+        self.SCROLL_BORDER_X = 80
+        self.scroll_x = 0
         self.create_characters()
-        pyxel.playm(0, loop=True)
+        pyxel.playm(self.music_vol, loop=True)
 
     def check_quit(self) -> None:
         if pyxel.btnp(pyxel.KEY_Q):
@@ -72,7 +74,6 @@ class BaseLevel(ABC):
     
     def update_template(self):
         "Some update actions that should happen in (almost) every instance."
-        anyone_here = False
         for p in self.player:
             p.update()
             for b in p.bullets:
@@ -83,10 +84,10 @@ class BaseLevel(ABC):
             for e in self.enemies:
                     # TODO: Check if a mob hit the player.
                     pass
-            if p.alive:
-                anyone_here = True
-        if not anyone_here:
+        if not self.check_anyone_alive():
             self.lost = True
+            pyxel.playm(6)
+            self.startup()
             return
         for e in self.enemies:
             e.update()

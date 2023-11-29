@@ -8,6 +8,7 @@ class Menu(BaseLevel):
     stage = "main"
     player_choice = 0
     player_choice_text = {0: "[1] Single (Diddi)", 1: "[2] Single (Eli)", 2: "[3] Multiplayer"}
+    music_vol = 5
 
     def create_characters(self):
         pass
