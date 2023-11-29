@@ -111,6 +111,9 @@ def push_back(x, y, dx, dy):
             x += sign
     return x, y, dx, dy
 
+def reset_scroll_x() -> None:
+    scroll_x = 0
+
 # === Players ===
 
 
@@ -132,6 +135,7 @@ class Player1:
         self.shoot = False
         self.is_falling = False
         self.active = False
+        reset_scroll_x()
         self.initial_setup()
 
     def initial_setup(self):
@@ -178,10 +182,8 @@ class Player1:
             return random.choice(self.imagebank[5:7])
     
     def get_scroll_x(self):
-        """
-        This is just a 'bridge' between a player class and a
-        level class, where 'scroll_x' is vital but not directly present.
-        """
+        # NOTE: This is just a 'bridge' between a player class and a
+        #       level class, where 'scroll_x' is vital but not directly present.
         return scroll_x
     
     def check_bullets(self):
@@ -190,8 +192,11 @@ class Player1:
         for i in range(len(self.bullets)):
             if not self.bullets[i].alive:
                 kills.append(i)
-        for k in kills.sort(reverse=True):
-            self.bullets.pop(k)
+        try:
+            for k in kills.sort(reverse=True):
+                self.bullets.pop(k)
+        except TypeError:
+            pass
 
     def update(self):
         "Update and react to key controls."

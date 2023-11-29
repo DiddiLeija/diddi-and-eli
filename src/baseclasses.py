@@ -8,17 +8,6 @@ from abc import ABC, abstractmethod
 from .characters import *
 
 
-# TODO: Only use the variables stored at "src/characters",
-#       or only use variables from here.
-SCROLL_BORDER_X = 80
-scroll_x = 0
-
-
-def update_scroll_x(player):
-    # FIXME: We should get rid of this func
-    scroll_x = player.get_scroll_x()
-
-
 class BaseLevel(ABC):
     "Base level."
     tilemap = 0  # Tilemap used by the level
@@ -30,6 +19,11 @@ class BaseLevel(ABC):
     enemy_templates = dict()  # Coordinates to spawn enemies, unique for each subclass
     enemies = list()  # The list with enemies/mobs
     draw_v = 0  # The 'v' parameter used in 'pyxel.bltm', during level drawing
+
+    # TODO: Only use the variables stored at "src/characters",
+    #       or only use variables from here.
+    SCROLL_BORDER_X = 80
+    scroll_x = 0
 
     def __init__(self):
         # NOTE: is this safe to do here, or should we run these per instance?
@@ -52,6 +46,10 @@ class BaseLevel(ABC):
             if p.alive:
                 return True
         return False
+    
+    def update_scroll_x(self, player):
+        # FIXME: We should get rid of this func
+        self.scroll_x = player.get_scroll_x()
     
     def create_characters(self):
         if self.player_choice == 0:
@@ -92,22 +90,23 @@ class BaseLevel(ABC):
             e.update()
         # NOTE: Only player 1 (Diddi, when multiplayer) will move the screen
         # TODO: On multiplayer mode, allow both players to move the screen??
-        update_scroll_x(self.player[0])
+        self.update_scroll_x(self.player[0])
         player_x = self.player[0].x
-        if player_x > scroll_x + SCROLL_BORDER_X:
+        if player_x > self.scroll_x + self.SCROLL_BORDER_X:
             # Move the screen if needed
-            last_scroll_x = scroll_x
-            scroll_x = min(self.x - SCROLL_BORDER_X, 240 * 8)
-            self.spawn(last_scroll_x + 128, scroll_x + 127)
+            last_scroll_x = self.scroll_x
+            self.scroll_x = min(self.x - self.SCROLL_BORDER_X, 240 * 8)
+            self.spawn(last_scroll_x + 128, self.scroll_x + 127)
     
     def draw_template(self):
         "Some drawing actions that should happen in (almost) every instance."
         pyxel.cls(0)
         if self.check_anyone_alive():
             pyxel.camera()
-            pyxel.bltm(0, 0, 1, scroll_x, self.draw_v, 128, 128, 0)
-            pyxel.camera(scroll_x, self.draw_v)  # test: self.draw_v or 0?
-            self.player.draw()
+            pyxel.bltm(0, 0, 1, self.scroll_x, self.draw_v, 128, 128, 0)
+            pyxel.camera(self.scroll_x, self.draw_v)  # test: self.draw_v or 0?
+            for p in self.player:
+                p.draw()
             for i in self.enemies:
                 i.draw()
 
