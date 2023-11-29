@@ -19,6 +19,7 @@ class BaseLevel(ABC):
     enemy_templates = dict()  # Coordinates to spawn enemies, unique for each subclass
     enemies = list()  # The list with enemies/mobs
     draw_v = 0  # The 'v' parameter used in 'pyxel.bltm', during level drawing
+    music_vol = 0
 
     # TODO: Only use the variables stored at "src/characters",
     #       or only use variables from here.
@@ -29,6 +30,7 @@ class BaseLevel(ABC):
         # NOTE: is this safe to do here, or should we run these per instance?
         pyxel.camera()
         self.create_characters()
+        pyxel.playm(0, loop=True)
 
     def check_quit(self) -> None:
         if pyxel.btnp(pyxel.KEY_Q):

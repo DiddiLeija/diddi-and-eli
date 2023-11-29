@@ -15,10 +15,6 @@ class One(BaseLevel):
     a lot of enemies or tricky spots.
     """
 
-    def __init__(self):
-        BaseLevel.__init__(self)
-        pyxel.playm(0, loop=True)
-
     def update(self):
         "Pyxel-like 'update' function."
         self.check_quit()
