@@ -4,7 +4,6 @@ import pyxel
 
 from .baseclasses import BaseLevel
 from .characters import *
-from .tools import draw_text
 
 
 class One(BaseLevel):
