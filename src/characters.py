@@ -134,6 +134,7 @@ class Player1:
         self.r_facing = True
         self.shoot = False
         self.is_falling = False
+        self.jumping = False
         self.active = False
         reset_scroll_x()
         self.initial_setup()
@@ -241,6 +242,9 @@ class Player1:
             # in 'Player2.update' in either Eli-mode or multiplayer mode.
             last_scroll_x = scroll_x
             scroll_x = min(self.x - SCROLL_BORDER_X, 240 * 8)
+        if self.y >= 120:
+            # We fell down!
+            self.alive = False
     
     def draw(self):
         "Draw the character."
