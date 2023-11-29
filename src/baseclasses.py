@@ -7,6 +7,18 @@ import math
 from abc import ABC, abstractmethod
 from .characters import *
 
+
+# TODO: Only use the variables stored at "src/characters",
+#       or only use variables from here.
+SCROLL_BORDER_X = 80
+scroll_x = 0
+
+
+def update_scroll_x(player):
+    # FIXME: We should get rid of this func
+    scroll_x = player.get_scroll_x()
+
+
 class BaseLevel(ABC):
     "Base level."
     tilemap = 0  # Tilemap used by the level
@@ -19,7 +31,7 @@ class BaseLevel(ABC):
     enemies = list()  # The list with enemies/mobs
 
     def __init__(self):
-        # WARNING: is this safe to do here, or should we run these per instance?
+        # NOTE: is this safe to do here, or should we run these per instance?
         pyxel.camera()
         self.create_characters()
 
@@ -71,6 +83,15 @@ class BaseLevel(ABC):
             return
         for e in self.enemies:
             e.update()
+        # NOTE: Only player 1 (Diddi, when multiplayer) will move the screen
+        # TODO: On multiplayer mode, allow both players to move the screen??
+        update_scroll_x(self.player[0])
+        player_x = self.player[0].x
+        if player_x > scroll_x + SCROLL_BORDER_X:
+            # Move the screen if needed
+            last_scroll_x = scroll_x
+            scroll_x = min(self.x - SCROLL_BORDER_X, 240 * 8)
+            self.spawn(last_scroll_x + 128, scroll_x + 127)
     
     def draw_template(self):
         "Some drawing actions that should happen in (almost) every instance."
