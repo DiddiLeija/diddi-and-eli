@@ -29,21 +29,28 @@ class BaseLevel(ABC):
     lost = False  # Did we die??
     enemy_templates = dict()  # Coordinates to spawn enemies, unique for each subclass
     enemies = list()  # The list with enemies/mobs
+    draw_v = 0  # The 'v' parameter used in 'pyxel.bltm', during level drawing
 
     def __init__(self):
         # NOTE: is this safe to do here, or should we run these per instance?
         pyxel.camera()
         self.create_characters()
 
-    def check_quit(self):
+    def check_quit(self) -> None:
         if pyxel.btnp(pyxel.KEY_Q):
             pyxel.quit()
     
-    def check_reset(self):
+    def check_reset(self) -> bool:
         if pyxel.btnp(pyxel.KEY_R):
             self.finished = True
             self.next = "menu"
             return True
+        return False
+    
+    def check_anyone_alive(self) -> bool:
+        for p in self.player:
+            if p.alive:
+                return True
         return False
     
     def create_characters(self):
@@ -96,6 +103,13 @@ class BaseLevel(ABC):
     def draw_template(self):
         "Some drawing actions that should happen in (almost) every instance."
         pyxel.cls(0)
+        if self.check_anyone_alive():
+            pyxel.camera()
+            pyxel.bltm(0, 0, 1, scroll_x, self.draw_v, 128, 128, 0)
+            pyxel.camera(scroll_x, self.draw_v)  # test: self.draw_v or 0?
+            self.player.draw()
+            for i in self.enemies:
+                i.draw()
 
     @abstractmethod
     def update(self):
