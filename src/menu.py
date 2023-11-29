@@ -9,6 +9,9 @@ class Menu(BaseLevel):
     player_choice = 0
     player_choice_text = {0: "[1] Single (Diddi)", 1: "[2] Single (Eli)", 2: "[3] Multiplayer"}
 
+    def create_characters(self):
+        pass
+
     def update(self):
         "Pyxel-like 'update' function."
         self.check_quit()
@@ -59,3 +62,4 @@ class Menu(BaseLevel):
             draw_text("- Press R to return -", 23, 82)
         # Always remind the users how to quit
         draw_text("- Press Q to quit -", 23, 90)
+

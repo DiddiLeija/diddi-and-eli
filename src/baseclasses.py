@@ -118,7 +118,3 @@ class BaseLevel(ABC):
     @abstractmethod
     def draw(self):
         pass
-
-    @abstractmethod
-    def create_characters(self):
-        pass
