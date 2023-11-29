@@ -215,11 +215,11 @@ class Player1:
             else:
                 # Send a bullet to the left
                 self.bullets.append(Bullet(self.x, self.y, False))
-        if pyxel.btnp(self.key_left):
+        if pyxel.btn(self.key_left):
             # Move to the left
             self.dx = -2
             self.r_facing = False
-        elif pyxel.btnp(self.key_right):
+        elif pyxel.btn(self.key_right):
             # Move to the right
             self.dx = 2
             self.r_facing = True
