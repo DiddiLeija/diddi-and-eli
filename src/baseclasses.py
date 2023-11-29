@@ -12,7 +12,7 @@ class BaseLevel(ABC):
     "Base level."
     tilemap = 0  # Tilemap used by the level
     player_choice = 0  # 0 is Diddi, 1 is Eli, and 2 is multiplayer
-    players = None  # Amount of players involved
+    player = list()  # Amount of players involved
     finished = False  # Have we finished today? Can we go home now?
     next = ""  # Where should we go after finishing
     lost = False  # Did we die??
@@ -20,11 +20,14 @@ class BaseLevel(ABC):
     enemies = list()  # The list with enemies/mobs
     draw_v = 0  # The 'v' parameter used in 'pyxel.bltm', during level drawing
     music_vol = 0
+    SCROLL_BORDER_X = 80
+    scroll_x = 0
 
     def __init__(self, player_choice):
         # pyxel.camera()
         self.player_choice = player_choice
-        self.startup()
+        self.create_characters()
+        pyxel.playm(self.music_vol, loop=True)
     
     def startup(self):
         # FIXME: Only use the variables stored at "src/characters",

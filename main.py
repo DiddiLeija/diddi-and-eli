@@ -17,7 +17,7 @@ class Main:
 
     def __init__(self):
         pyxel.load("resource.pyxres")
-        self.situation = init_class(stages_list["menu"], None)
+        self.situation = init_class(stages_list["menu"], 0)
         pyxel.run(self.update, self.draw)
     
     def update(self):

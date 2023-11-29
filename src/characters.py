@@ -270,7 +270,7 @@ class Player2(Player1):
         self.key_up = pyxel.KEY_UP
         self.key_left = pyxel.KEY_LEFT
         self.key_bullet = pyxel.KEY_DOWN
-        self.key_right = pyxel.KEY_UP
+        self.key_right = pyxel.KEY_RIGHT
         self.imagebank = [
             (8, 16),    # Right, normal
             (16, 16),   # Right, walking (1)
