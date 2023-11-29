@@ -2,6 +2,8 @@
 
 import pyxel
 
+import math
+
 from abc import ABC, abstractmethod
 from .characters import *
 
@@ -13,6 +15,7 @@ class BaseLevel(ABC):
     finished = False  # Have we finished today? Can we go home now?
     next = ""  # Where should we go after finishing
     lost = False  # Did we die??
+    enemy_templates = dict()  # Coordinates to spawn enemies, unique for each subclass
     enemies = list()  # The list with enemies/mobs
 
     def __init__(self):
@@ -38,6 +41,15 @@ class BaseLevel(ABC):
             self.player = [Player2(0, 0)]
         elif self.player_choice == 2:
             self.player = [Player1(0, 0), Player2(0, 10)]
+    
+    def spawn(self):
+        left_x = math.ceil(left_x / 8)
+        right_x = math.floor(right_x / 8)
+        for x in range(left_x, right_x + 1):
+            for y in range(16):
+                if (x*8, y*8) in self.enemy_template:
+                    mobclass = self.enemy_templates[(x*8, y*8)]
+                    self.enemies.append(mobclass(x * 8, y * 8))
     
     def update_template(self):
         "Some update actions that should happen in (almost) every instance."
