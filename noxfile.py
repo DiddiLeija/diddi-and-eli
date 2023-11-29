@@ -13,6 +13,14 @@ files = (
 
 @nox.session
 def format(session: nox.Session):
+    "Format the codebase."
     session.install("-r", "requirements.txt")
     session.install("-r", "test-requirements.txt")
-    session.run("ruff", "check", *files, "--fix")
+    session.run("ruff", "check", *files, "--fix")  # TODO: ignore certain rules?
+
+@nox.session
+def lint(session: nox.Session):
+    "Lint the codebase."
+    session.install("-r", "requirements.txt")
+    session.install("-r", "test-requirements.txt")
+    session.run("ruff", "check", *files)  # TODO: ignore certain rules?
