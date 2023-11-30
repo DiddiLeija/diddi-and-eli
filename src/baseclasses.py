@@ -10,7 +10,7 @@ from .characters import *
 
 class BaseLevel(ABC):
     "Base level."
-    tilemap = 0  # Tilemap used by the level
+    # tilemap = 0
     player_choice = 0  # 0 is Diddi, 1 is Eli, and 2 is multiplayer
     player = list()  # Amount of players involved
     finished = False  # Have we finished today? Can we go home now?
@@ -113,6 +113,8 @@ class BaseLevel(ABC):
             pyxel.camera(self.scroll_x, self.draw_v)  # test: self.draw_v or 0?
             for p in self.player:
                 p.draw()
+                for b in p.bullets:
+                    b.draw()
             for i in self.enemies:
                 i.draw()
 
