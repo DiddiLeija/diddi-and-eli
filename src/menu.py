@@ -7,6 +7,7 @@ class Menu(BaseLevel):
     "Menu window."
     stage = "main"
     player_choice = 0
+    enemy_template = dict()
     player_choice_text = {0: "[1] Single (Diddi)", 1: "[2] Single (Eli)", 2: "[3] Multiplayer"}
     music_vol = 5
 
@@ -43,6 +44,7 @@ class Menu(BaseLevel):
         "Pyxel-like 'draw' function."
         # Clear the screen
         pyxel.cls(0)
+        pyxel.camera(self.scroll_x, self.draw_v)  # TODO: Is this a good idea?
         # NOTE: Tilemap 0 is the menu tilemap, ok?
         pyxel.bltm(0, 0, 0, 0, 0, 128, 128)
         # Draw a "menu window"

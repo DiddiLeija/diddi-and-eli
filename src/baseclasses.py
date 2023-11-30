@@ -24,9 +24,10 @@ class BaseLevel(ABC):
     scroll_x = 0
 
     def __init__(self, player_choice):
-        # pyxel.camera()
+        pyxel.camera(0, self.draw_v)
         self.player_choice = player_choice
         self.create_characters()
+        self.spawn(0, 128)
         pyxel.playm(self.music_vol, loop=True)
     
     def startup(self):
@@ -66,7 +67,7 @@ class BaseLevel(ABC):
         elif self.player_choice == 2:
             self.player = [Player1(0, 0), Player2(0, 10)]
     
-    def spawn(self):
+    def spawn(self, left_x, right_x):
         left_x = math.ceil(left_x / 8)
         right_x = math.floor(right_x / 8)
         for x in range(left_x, right_x + 1):
