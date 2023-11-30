@@ -18,8 +18,10 @@ class One(BaseLevel):
     def update(self):
         "Pyxel-like 'update' function."
         self.check_quit()
-        if self.check_reset() or self.finished:
-            return None
+        if self.check_reset():
+            self.next = "menu"
+        elif self.finished:
+            self.next = "two"
         self.update_template()
     
     def draw(self):
