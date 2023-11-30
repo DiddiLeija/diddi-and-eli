@@ -82,11 +82,12 @@ class BaseLevel(ABC):
             for b in p.bullets:
                 b.update()
                 for e in self.enemies:
-                    # TODO: Check if a bullet hit a mob.
-                    pass
+                    if b.x in range(e.x, e.x+9) and b.y in range(e.y, e.y+9):
+                        e.alive = False
             for e in self.enemies:
-                    # TODO: Check if a mob hit the player.
-                    pass
+                if e.alive:
+                    if e.x in range(p.x, p.x+9) and e.y in range(p.y, p.y+9):
+                        p.alive = False
         if not self.check_anyone_alive():
             self.lost = True
             pyxel.playm(6)
