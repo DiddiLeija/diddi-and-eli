@@ -25,7 +25,6 @@ class Main:
         # If the situation "ends", jump into the next one
         # Also, keep memory of your player choice :)
         if self.situation.finished:
-            pyxel.camera(0, 0)
             tmp = self.situation.player_choice
             self.situation = init_class(stages_list[self.situation.next], tmp)
             del(tmp)  # we have to remove 'tmp' ASAP
