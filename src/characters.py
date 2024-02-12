@@ -63,7 +63,7 @@ def adjust_x(real_x):
     return scroll_x + real_x
 
 def get_tile(tile_x, tile_y):
-    return pyxel.tilemap(1).pget(tile_x, tile_y)
+    return pyxel.tilemaps[1].pget(tile_x, tile_y)
 
 def detect_collision(x, y, dy):
     x1 = x // 8
@@ -187,6 +187,11 @@ class Player1:
         #       level class, where 'scroll_x' is vital but not directly present.
         return scroll_x
     
+    def reset_scroll_x(self):
+        # NOTE: This is just a 'bridge' between a player class and a
+        #       level class, where 'scroll_x' is vital but not directly present.
+        reset_scroll_x()
+    
     def check_bullets(self):
         "Control bullets."
         kills = list()
@@ -225,7 +230,7 @@ class Player1:
             self.dx = 2
             self.r_facing = True
         self.dy = min(self.dy + 1, 3)
-        if pyxel.btnp(self.key_up) and not self.is_falling:
+        if pyxel.btnp(self.key_up) and not self.is_falling and self.dy != -8:
             # Jump (instead of the fly-ish mechanics from previous games)
             self.dy = -8  # TODO: Adjust this in order to achieve realistic jumps
         # Now operate the movement

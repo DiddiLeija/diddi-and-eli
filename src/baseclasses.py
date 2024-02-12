@@ -36,6 +36,7 @@ class BaseLevel(ABC):
         self.SCROLL_BORDER_X = 80
         self.scroll_x = 0
         self.create_characters()
+        self.player[0].reset_scroll_x()
         pyxel.playm(self.music_vol, loop=True)
 
     def check_quit(self) -> None:
@@ -58,6 +59,7 @@ class BaseLevel(ABC):
     def update_scroll_x(self, player):
         # FIXME: We should get rid of this func
         self.scroll_x = player.get_scroll_x()
+        print(self.scroll_x)
     
     def create_characters(self):
         if self.player_choice == 0:
@@ -91,8 +93,9 @@ class BaseLevel(ABC):
                         p.alive = False
         if not self.check_anyone_alive():
             self.lost = True
+            self.finished = True
             pyxel.playm(6)
-            self.startup()
+            self.next = "menu"
             return
         for e in self.enemies:
             e.update()
