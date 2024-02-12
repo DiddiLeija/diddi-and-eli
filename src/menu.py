@@ -1,6 +1,6 @@
 import pyxel
 
-from .baseclasses import BaseLevel
+from .characters import BaseLevel
 from .tools import draw_text
 
 class Menu(BaseLevel):
@@ -44,7 +44,7 @@ class Menu(BaseLevel):
         "Pyxel-like 'draw' function."
         # Clear the screen
         pyxel.cls(0)
-        pyxel.camera(self.scroll_x, self.draw_v)  # TODO: Is this a good idea?
+        pyxel.camera(0, self.draw_v)  # TODO: Is this a good idea?
         # NOTE: Tilemap 0 is the menu tilemap, ok?
         pyxel.bltm(0, 0, 0, 0, 0, 128, 128)
         # Draw a "menu window"

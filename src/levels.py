@@ -2,7 +2,6 @@
 
 import pyxel
 
-from .baseclasses import BaseLevel
 from .characters import *
 
 
