@@ -15,10 +15,13 @@ One = levels.One
 
 # Below there's a dictionary with all the objects for further use
 stages_list = {
+    "intro": None,  # TODO: A non-playable intro sequence
     "one": One,
     "two": Two,
     "three": Three,
     "four": Four,
+    "preboss": None,  # TODO: A non-playable pre-boss sequence
     "five": Five,
+    "final": None,  # TODO: A non-playable closing sequence
     "menu": Menu,
 }
