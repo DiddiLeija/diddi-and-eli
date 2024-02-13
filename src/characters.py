@@ -395,9 +395,9 @@ class Bullet:
         if not self.alive:
             return
         if self.r_facing:
-            self.x += 2
+            self.x += 3
         else:
-            self.x -= 2
+            self.x -= 3
     
     def draw(self):
         if not self.alive:
