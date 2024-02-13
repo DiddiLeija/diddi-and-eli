@@ -440,7 +440,7 @@ class BaseLevel(ABC):
     music_vol = 0
 
     def __init__(self, player_choice):
-        pyxel.camera(0, self.draw_v)
+        pyxel.camera(0, 0)
         self.player_choice = player_choice
         self.create_characters()
         self.spawn(0, 128)
@@ -523,7 +523,7 @@ class BaseLevel(ABC):
         if self.check_anyone_alive():
             pyxel.camera()
             pyxel.bltm(0, 0, 1, scroll_x, self.draw_v, 128, 128, 0)
-            pyxel.camera(scroll_x, self.draw_v)  # test: self.draw_v or 0?
+            pyxel.camera(scroll_x, 0)  # test: self.draw_v or 0?
             for p in self.player:
                 p.draw()
                 for b in p.bullets:
