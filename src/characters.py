@@ -521,7 +521,6 @@ class BaseLevel(ABC):
             return
         for e in self.enemies:
             e.update()
-        player_x = self.player[0].x
         # NOTE: turns out this portion of code is never executed!?
         #if player_x > scroll_x + SCROLL_BORDER_X:
         #    # Move the screen if needed
