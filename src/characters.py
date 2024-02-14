@@ -439,6 +439,7 @@ class BaseLevel(ABC):
     next = ""  # Where should we go after finishing
     lost = False  # Did we die??
     enemy_templates = dict()  # Coordinates to spawn enemies, unique for each subclass
+    already_spawned = list()  # List of already-spawned coordinates
     enemies = list()  # The list with enemies/mobs
     draw_v = 0  # The 'v' parameter used in 'pyxel.bltm', during level drawing
     music_vol = 0
@@ -487,9 +488,10 @@ class BaseLevel(ABC):
         for x in range(left_x, right_x + 1):
             for y in range(16):
                 key = f"{x*8} {y*8}"
-                if key in self.enemy_template.keys():
+                if key in self.enemy_template.keys() and key not in self.already_spawned:
                     mobclass = self.enemy_template[key]
                     self.enemies.append(mobclass(x * 8, y * 8))
+                    self.already_spawned.append(key)
                     # print(f"Added {mobclass}")
 
     def update_template(self):
