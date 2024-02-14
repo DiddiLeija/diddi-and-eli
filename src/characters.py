@@ -124,6 +124,7 @@ class Player1:
     Diddi, Player 1, operated using WASD keys.
     """
     alive = True
+    already_jumping = False
     bullets = []
 
     def __init__(self, x=0, y=0):
@@ -223,9 +224,10 @@ class Player1:
             self.dx = 2
             self.r_facing = True
         self.dy = min(self.dy + 1, 3)
-        if pyxel.btnp(self.key_up) and not self.is_falling and self.dy != -8:
+        if pyxel.btnp(self.key_up) and not self.is_falling and not self.already_jumping:
             # Jump (instead of the fly-ish mechanics from previous games)
             self.dy = -8  # TODO: Adjust this in order to achieve realistic jumps
+            self.already_jumping = True
         # Now operate the movement
         self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
         if self.x < scroll_x:
@@ -234,6 +236,7 @@ class Player1:
             self.y = 0
         self.dx = int(self.dx * 0.8)
         self.is_falling = self.y > self.prev_y
+        self.already_jumping = self.prev_y > self.y
         # And finally, move the screen forward if needed
         if self.x > scroll_x + SCROLL_BORDER_X:
             # The 'scroll_x' stuff is located here, but may also happen
