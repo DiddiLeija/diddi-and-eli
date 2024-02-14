@@ -318,6 +318,7 @@ class Onion(BaseMob):
             self.direction = 1
         elif self.direction > 0 and is_wall(self.x + 8, self.y + 4):
             self.direction = -1
+        self.dy = min(self.dy + 1, 3)
         self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
 
     def draw(self):
@@ -340,6 +341,7 @@ class Robot(BaseMob):
                 is_wall(self.x + 8, self.y + 4) or not is_wall(self.x + 7, self.y + 8)
             ):
                 self.direction = -1
+        self.dy = min(self.dy + 1, 3)
         self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
 
     def draw(self):
