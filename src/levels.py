@@ -13,7 +13,11 @@ class One(BaseLevel):
     easiest level in the game, so it doesn't contain
     a lot of enemies or tricky spots.
     """
-    enemy_template = {(21*8, 8*8): Onion}
+    enemy_template = {
+        "0 0": Onion,
+        "264 80": Onion,
+        "424 48": Onion
+    }
 
     def update(self):
         "Pyxel-like 'update' function."

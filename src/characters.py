@@ -486,9 +486,11 @@ class BaseLevel(ABC):
         right_x = math.floor(right_x / 8)
         for x in range(left_x, right_x + 1):
             for y in range(16):
-                if (x*8, y*8) in self.enemy_template:
-                    mobclass = self.enemy_templates[(x*8, y*8)]
+                key = f"{x*8} {y*8}"
+                if key in self.enemy_template.keys():
+                    mobclass = self.enemy_template[key]
                     self.enemies.append(mobclass(x * 8, y * 8))
+                    # print(f"Added {mobclass}")
     
     def update_template(self):
         "Some update actions that should happen in (almost) every instance."
@@ -512,14 +514,17 @@ class BaseLevel(ABC):
             return
         for e in self.enemies:
             e.update()
-        # NOTE: Only player 1 (Diddi, when multiplayer) will move the screen
-        # TODO: On multiplayer mode, allow both players to move the screen??
         player_x = self.player[0].x
-        if player_x > scroll_x + SCROLL_BORDER_X:
-            # Move the screen if needed
-            last_scroll_x = scroll_x
-            self.scroll_x = min(self.x - self.SCROLL_BORDER_X, 240 * 8)
-            self.spawn(last_scroll_x + 128, scroll_x + 127)
+        if len(self.player) > 1:
+            # multiplayer fix
+            player_x = max(player_x, self.player[1].x)
+        # NOTE: turns out this portion of code is never executed!?
+        #if player_x > scroll_x + SCROLL_BORDER_X:
+        #    # Move the screen if needed
+        #    last_scroll_x = scroll_x
+        #    self.scroll_x = min(self.x - self.SCROLL_BORDER_X, 240 * 8)
+        #    self.spawn(last_scroll_x + 128, scroll_x + 127)
+        self.spawn(scroll_x, scroll_x + 127)
     
     def draw_template(self):
         "Some drawing actions that should happen in (almost) every instance."
