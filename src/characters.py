@@ -62,12 +62,13 @@ TILES_FLOOR = [
     (56, 72),  # Button support (v)
 ]
 scroll_x = 0
+Y_LEVEL = 0
 
 def adjust_x(real_x):
     return scroll_x + real_x
 
 def get_tile(tile_x, tile_y):
-    return pyxel.tilemaps[1].pget(tile_x, tile_y)
+    return pyxel.tilemaps[1].pget(tile_x, Y_LEVEL + tile_y)
 
 def detect_collision(x, y, dy):
     x1 = x // 8
@@ -385,7 +386,7 @@ class Slimehorn4(SlimehornBase):
 
 
 class Bullet:
-    "A bullet send by either Diddi or Eli, which may damage enemies."
+    "A bullet sent by either Diddi or Eli, which may damage enemies."
     alive = False
 
     def __init__(self, x, y, r_facing=True):
@@ -427,7 +428,7 @@ class Coin:
         pyxel.blt(self.x, self.y, 0, 0, 8, 8, 8, 0)
 
 
-# === Base level (removed from troubled 'src.baseclasses')
+# === Base level (removed from troubled 'src.baseclasses') ===
  
 class BaseLevel(ABC):
     "Base level."
@@ -446,12 +447,12 @@ class BaseLevel(ABC):
         pyxel.camera(0, 0)
         self.player_choice = player_choice
         self.create_characters()
+        global Y_LEVEL
+        Y_LEVEL = self.draw_v
         self.spawn(0, 128)
         pyxel.playm(self.music_vol, loop=True)
     
     def startup(self):
-        # FIXME: Only use the variables stored at "src/characters",
-        #       or only use variables from here.
         self.create_characters()
         pyxel.playm(self.music_vol, loop=True)
 
