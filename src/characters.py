@@ -242,11 +242,14 @@ class Player1:
         if self.y >= 120:
             # We fell down!
             self.alive = False
+        if not self.alive:
+            pyxel.playm(6)
     
     def draw(self):
         "Draw the character."
-        combo = self.get_image_combo()
-        pyxel.blt(self.x, self.y, 0, combo[0], combo[1], 8, 8, 0)
+        if self.alive:
+            combo = self.get_image_combo()
+            pyxel.blt(self.x, self.y, 0, combo[0], combo[1], 8, 8, 0)
 
 
 class Player2(Player1):
