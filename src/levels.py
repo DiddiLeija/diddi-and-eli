@@ -14,7 +14,6 @@ class One(BaseLevel):
     a lot of enemies or tricky spots.
     """
     enemy_template = {
-        "0 0": Onion,
         "264 80": Onion,
         "424 48": Onion
     }
