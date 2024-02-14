@@ -162,7 +162,7 @@ class Player1:
             (32, 8),  # Left, jumping
         ]
         self.icon = (0, 16)
-    
+
     def get_image_combo(self):
         if self.r_facing:
             # Our player is facing to the right
@@ -184,7 +184,7 @@ class Player1:
                 return self.imagebank[4]
             # We're walking
             return random.choice(self.imagebank[5:7])
-    
+
     def check_bullets(self):
         "Control bullets."
         kills = list()
@@ -245,7 +245,7 @@ class Player1:
             self.alive = False
         if not self.alive:
             pyxel.playm(6)
-    
+
     def draw(self):
         "Draw the character."
         if self.alive:
@@ -298,7 +298,7 @@ class BaseMob:
         self.dx = 0
         self.dy = 0
         self.alive = True
-    
+
     def update(self):
         pass
 
@@ -316,7 +316,7 @@ class Onion(BaseMob):
         elif self.direction > 0 and is_wall(self.x + 8, self.y + 4):
             self.direction = -1
         self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
-    
+
     def draw(self):
         u = 16 if self.direction < 0 else 24
         v = random.choice([48, 56])
@@ -338,7 +338,7 @@ class Robot(BaseMob):
             ):
                 self.direction = -1
         self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
-    
+
     def draw(self):
         u = 0 if self.direction < 0 else 8
         v = random.choice([48, 56])
@@ -347,12 +347,12 @@ class Robot(BaseMob):
 class SlimehornBase(BaseMob):
     "Base class for slimehorns (see below)."
     imgs = [tuple(), tuple()]
-    
+
     def __init__(self, x, y, variant=False):
         self.x = self.x
         self.y = y
         self.variant = variant
-    
+
     def update(self):
         # TODO: By now, Slimehorns won't move.
         #       Let's try to give them some action
@@ -394,7 +394,7 @@ class Bullet:
         self.y = y
         self.r_facing = r_facing
         self.alive = True
-    
+
     def update(self):
         if not self.alive:
             return
@@ -402,7 +402,7 @@ class Bullet:
             self.x += 3
         else:
             self.x -= 3
-    
+
     def draw(self):
         if not self.alive:
             return
@@ -417,7 +417,7 @@ class Coin:
         self.x = x
         self.y = y
         self.alive = True
-    
+
     def update(self):
         # We won't do anything at all here!
         pass
@@ -429,7 +429,7 @@ class Coin:
 
 
 # === Base level (removed from troubled 'src.baseclasses') ===
- 
+
 class BaseLevel(ABC):
     "Base level."
     # tilemap = 0
@@ -451,7 +451,7 @@ class BaseLevel(ABC):
         Y_LEVEL = self.draw_v
         self.spawn(0, 128)
         pyxel.playm(self.music_vol, loop=True)
-    
+
     def startup(self):
         self.create_characters()
         pyxel.playm(self.music_vol, loop=True)
@@ -459,20 +459,20 @@ class BaseLevel(ABC):
     def check_quit(self) -> None:
         if pyxel.btnp(pyxel.KEY_Q):
             pyxel.quit()
-    
+
     def check_reset(self) -> bool:
         if pyxel.btnp(pyxel.KEY_R):
             self.finished = True
             self.next = "menu"
             return True
         return False
-    
+
     def check_anyone_alive(self) -> bool:
         for p in self.player:
             if p.alive:
                 return True
         return False
-    
+
     def create_characters(self):
         if self.player_choice == 0:
             self.player = [Player1(0, 0)]
@@ -480,7 +480,7 @@ class BaseLevel(ABC):
             self.player = [Player2(0, 0)]
         elif self.player_choice == 2:
             self.player = [Player1(0, 0), Player2(0, 10)]
-    
+
     def spawn(self, left_x, right_x):
         left_x = math.ceil(left_x / 8)
         right_x = math.floor(right_x / 8)
@@ -491,7 +491,7 @@ class BaseLevel(ABC):
                     mobclass = self.enemy_template[key]
                     self.enemies.append(mobclass(x * 8, y * 8))
                     # print(f"Added {mobclass}")
-    
+
     def update_template(self):
         "Some update actions that should happen in (almost) every instance."
         for p in self.player:
@@ -515,9 +515,6 @@ class BaseLevel(ABC):
         for e in self.enemies:
             e.update()
         player_x = self.player[0].x
-        if len(self.player) > 1:
-            # multiplayer fix
-            player_x = max(player_x, self.player[1].x)
         # NOTE: turns out this portion of code is never executed!?
         #if player_x > scroll_x + SCROLL_BORDER_X:
         #    # Move the screen if needed
@@ -525,7 +522,7 @@ class BaseLevel(ABC):
         #    self.scroll_x = min(self.x - self.SCROLL_BORDER_X, 240 * 8)
         #    self.spawn(last_scroll_x + 128, scroll_x + 127)
         self.spawn(scroll_x, scroll_x + 127)
-    
+
     def draw_template(self):
         "Some drawing actions that should happen in (almost) every instance."
         pyxel.cls(0)
