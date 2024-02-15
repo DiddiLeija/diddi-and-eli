@@ -23,6 +23,7 @@ class One(BaseLevel):
         "696 56": Onion,
         "912 48": Robot
     }
+    coin_template = ["32 80", "40 80", "48 80", "80 72", "88 72", "96 72"]
 
     def update(self):
         "Pyxel-like 'update' function."

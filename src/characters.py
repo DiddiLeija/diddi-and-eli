@@ -443,9 +443,11 @@ class BaseLevel(ABC):
     finished = False  # Have we finished today? Can we go home now?
     next = ""  # Where should we go after finishing
     lost = False  # Did we die??
-    enemy_templates = dict()  # Coordinates to spawn enemies, unique for each subclass
-    already_spawned = list()  # List of already-spawned coordinates
+    enemy_template = dict()  # Coordinates to spawn enemies, unique for each subclass
+    coin_template = list()  # Coordinates to spawn coins, unique for each subclass
+    already_spawned = list()  # List of already-spawned coordinates (mobs, coins, npcs, etc)
     enemies = list()  # The list with enemies/mobs
+    coins = list()  # The list of coins
     draw_v = 0  # The 'v' parameter used in 'pyxel.bltm', during level drawing
     music_vol = 0
 
@@ -497,7 +499,9 @@ class BaseLevel(ABC):
                     mobclass = self.enemy_template[key]
                     self.enemies.append(mobclass(x * 8, y * 8))
                     self.already_spawned.append(key)
-                    # print(f"Added {mobclass}")
+                if key in self.coin_template and key not in self.already_spawned:
+                    self.coins.append(Coin(x * 8, y * 8))
+                    self.already_spawned.append(key)
 
     def update_template(self):
         "Some update actions that should happen in (almost) every instance."
@@ -521,6 +525,8 @@ class BaseLevel(ABC):
             return
         for e in self.enemies:
             e.update()
+        for c in self.coins:
+            c.update()
         # NOTE: turns out this portion of code is never executed!?
         #if player_x > scroll_x + SCROLL_BORDER_X:
         #    # Move the screen if needed
@@ -541,6 +547,8 @@ class BaseLevel(ABC):
                 for b in p.bullets:
                     b.draw()
             for i in self.enemies:
+                i.draw()
+            for i in self.coins:
                 i.draw()
 
     @abstractmethod
