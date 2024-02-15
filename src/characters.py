@@ -456,6 +456,9 @@ class BaseLevel(ABC):
     def __init__(self, player_choice):
         pyxel.camera(0, 0)
         self.player_choice = player_choice
+        self.already_spawned = list()
+        self.enemies = list()
+        self.coins = list()
         self.create_characters()
         global Y_LEVEL, TOTAL_COINS
         Y_LEVEL = self.draw_v
