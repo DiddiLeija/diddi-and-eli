@@ -429,7 +429,7 @@ class Coin:
 
     def draw(self):
         if not self.alive:
-            pass
+            return
         pyxel.blt(self.x, self.y, 0, 0, 8, 8, 8, 0)
 
 
@@ -507,6 +507,12 @@ class BaseLevel(ABC):
         "Some update actions that should happen in (almost) every instance."
         for p in self.player:
             p.update()
+            for c in self.coins:
+                c.update()
+                if c.x in range(p.x, p.x+9) and c.y in range(p.y, p.y+9) and c.alive:
+                        # TODO: Make the "coin counter" (not added yet) to rise up
+                        c.alive = False
+                        # print("cling!")  # test
             for b in p.bullets:
                 b.update()
                 for e in self.enemies:
@@ -525,8 +531,6 @@ class BaseLevel(ABC):
             return
         for e in self.enemies:
             e.update()
-        for c in self.coins:
-            c.update()
         # NOTE: turns out this portion of code is never executed!?
         #if player_x > scroll_x + SCROLL_BORDER_X:
         #    # Move the screen if needed
