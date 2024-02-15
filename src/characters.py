@@ -126,7 +126,6 @@ class Player1:
     """
     alive = True
     already_jumping = False
-    bullets = []
 
     def __init__(self, x=0, y=0):
         self.x = x
@@ -140,6 +139,7 @@ class Player1:
         self.is_falling = False
         self.jumping = False
         self.active = False
+        self.bullets = list()
         global scroll_x
         scroll_x = 0
         self.initial_setup()
@@ -307,6 +307,10 @@ class BaseMob:
         pass
 
     def draw(self):
+        if self.alive:
+            self.draw_template()
+    
+    def draw_template(self):
         pass
 
 class Onion(BaseMob):
@@ -322,7 +326,7 @@ class Onion(BaseMob):
         self.dy = min(self.dy + 1, 3)
         self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
 
-    def draw(self):
+    def draw_template(self):
         u = 16 if self.direction < 0 else 24
         v = random.choice([48, 56])
         pyxel.blt(self.x, self.y, 0, u, v, 8, 8, 0)
@@ -345,7 +349,7 @@ class Robot(BaseMob):
         self.dy = min(self.dy + 1, 3)
         self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
 
-    def draw(self):
+    def draw_template(self):
         u = 0 if self.direction < 0 else 8
         v = random.choice([48, 56])
         pyxel.blt(self.x, self.y, 0, u, v, 8, 8, 0)
@@ -517,17 +521,21 @@ class BaseLevel(ABC):
             p.update()
             for c in self.coins:
                 c.update()
-                if c.x in range(p.x, p.x+9) and c.y in range(p.y, p.y+9) and c.alive:
+                if c.x in range(p.x-4, p.x+8) and c.y in range(p.y-4, p.y+8) and c.alive:
                         TOTAL_COINS += 1
                         c.alive = False
             for b in p.bullets:
                 b.update()
                 for e in self.enemies:
-                    if b.x in range(e.x, e.x+9) and b.y in range(e.y, e.y+9):
+                    if not e.alive:
+                        continue
+                    if b.x in range(e.x-4, e.x+8) and b.y in range(e.y-4, e.y+8):
                         e.alive = False
+                        b.alive = False
+                        break
             for e in self.enemies:
                 if e.alive:
-                    if e.x in range(p.x, p.x+9) and e.y in range(p.y, p.y+9):
+                    if e.x in range(p.x-4, p.x+8) and e.y in range(p.y-4, p.y+8):
                         p.alive = False
         if not self.check_anyone_alive():
             self.lost = True
