@@ -63,6 +63,7 @@ TILES_FLOOR = [
 ]
 scroll_x = 0
 Y_LEVEL = 0
+TOTAL_COINS = 0
 
 def adjust_x(real_x):
     return scroll_x + real_x
@@ -450,13 +451,16 @@ class BaseLevel(ABC):
     coins = list()  # The list of coins
     draw_v = 0  # The 'v' parameter used in 'pyxel.bltm', during level drawing
     music_vol = 0
+    reset_coin_counter = False  # False by default, should be True for Menu instances
 
     def __init__(self, player_choice):
         pyxel.camera(0, 0)
         self.player_choice = player_choice
         self.create_characters()
-        global Y_LEVEL
+        global Y_LEVEL, TOTAL_COINS
         Y_LEVEL = self.draw_v
+        if self.reset_coin_counter:
+            TOTAL_COINS = 0
         self.spawn(0, 128)
         pyxel.playm(self.music_vol, loop=True)
 
@@ -505,14 +509,14 @@ class BaseLevel(ABC):
 
     def update_template(self):
         "Some update actions that should happen in (almost) every instance."
+        global TOTAL_COINS
         for p in self.player:
             p.update()
             for c in self.coins:
                 c.update()
                 if c.x in range(p.x, p.x+9) and c.y in range(p.y, p.y+9) and c.alive:
-                        # TODO: Make the "coin counter" (not added yet) to rise up
+                        TOTAL_COINS += 1
                         c.alive = False
-                        # print("cling!")  # test
             for b in p.bullets:
                 b.update()
                 for e in self.enemies:

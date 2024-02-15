@@ -10,6 +10,7 @@ class Menu(BaseLevel):
     enemy_template = dict()
     player_choice_text = {0: "[1] Single (Diddi)", 1: "[2] Single (Eli)", 2: "[3] Multiplayer"}
     music_vol = 5
+    reset_coin_counter = True
 
     def create_characters(self):
         pass
