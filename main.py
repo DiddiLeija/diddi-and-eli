@@ -34,5 +34,5 @@ class Main:
 
 
 if __name__ == "__main__":
-    pyxel.init(128, 128, "Diddi and Eli")
+    pyxel.init(128, 128, "Diddi and Eli", capture_sec=120)
     Main()
