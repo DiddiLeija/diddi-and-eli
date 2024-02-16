@@ -16,11 +16,15 @@ class One(BaseLevel):
     Mobs: Onions (4), Robot (1)
     """
     enemy_template = {
+        "168 64": Onion,
         "264 80": Onion,
+        "408 64": Onion,
         "424 48": Onion,
         "566 40": Onion,
         "604 40": Onion,
+        "632 0": Onion,
         "696 56": Onion,
+        "760 32": Robot,
         "912 48": Robot
     }
     coin_template = [
