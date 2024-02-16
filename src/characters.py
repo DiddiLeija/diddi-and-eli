@@ -318,6 +318,7 @@ class Onion(BaseMob):
     direction = -1
 
     def update(self):
+        global Y_LEVEL
         self.dx = self.direction
         if self.direction < 0 and is_wall(self.x - 1, self.y + 4):
             self.direction = 1
@@ -325,6 +326,8 @@ class Onion(BaseMob):
             self.direction = -1
         self.dy = min(self.dy + 1, 3)
         self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
+        if self.y >= Y_LEVEL + 120:
+            self.alive = False
 
     def draw_template(self):
         u = 16 if self.direction < 0 else 24
@@ -348,6 +351,8 @@ class Robot(BaseMob):
                 self.direction = -1
         self.dy = min(self.dy + 1, 3)
         self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
+        # NOTE: Unlke Onions, here we are not adding a "fall detector" here, because
+        # in theory Robots never fall from platforms and reach y >= 120.
 
     def draw_template(self):
         u = 0 if self.direction < 0 else 8
