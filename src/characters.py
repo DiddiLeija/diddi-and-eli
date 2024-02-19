@@ -242,7 +242,7 @@ class Player1:
         if self.x > scroll_x + SCROLL_BORDER_X:
             # The 'scroll_x' stuff is located here, but may also happen
             # in 'Player2.update' in either Eli-mode or multiplayer mode.
-            last_scroll_x = scroll_x
+            # last_scroll_x = scroll_x  # FIXME: last_scroll_x is unused here?
             scroll_x = min(self.x - SCROLL_BORDER_X, 240 * 8)
         if self.y >= 120:
             # We fell down!

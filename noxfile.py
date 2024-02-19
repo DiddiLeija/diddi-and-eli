@@ -4,7 +4,6 @@ files = (
     "main.py",
     "noxfile.py",
     "src/__init__.py",
-    "src/baseclasses.py",
     "src/characters.py",
     "src/levels.py",
     "src/menu.py",

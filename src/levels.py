@@ -1,8 +1,7 @@
 "Library containing all the level classes, which honestly are pretty simple."
 
-import pyxel
 
-from .characters import *
+from .characters import BaseLevel, Onion, Robot
 
 
 class One(BaseLevel):
