@@ -15,7 +15,7 @@ class One(BaseLevel):
     Mobs: Onions (4), Robot (1)
     """
     enemy_template = {
-        "168 64": Onion,
+        "120 88": Onion,
         "264 80": Onion,
         "408 64": Onion,
         "424 48": Onion,
