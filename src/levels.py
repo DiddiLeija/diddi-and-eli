@@ -61,6 +61,7 @@ class One(BaseLevel):
         "848 48",
         "856 56"
     ]
+    bgcolor = 12
 
     def update(self):
         "Pyxel-like 'update' function."

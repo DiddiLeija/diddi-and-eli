@@ -461,6 +461,7 @@ class BaseLevel(ABC):
     draw_v = 0  # The 'v' parameter used in 'pyxel.bltm', during level drawing
     music_vol = 0
     reset_coin_counter = False  # False by default, should be True for Menu instances
+    bgcolor = 0  # Customizable background color, set to 0 by default
 
     def __init__(self, player_choice):
         pyxel.camera(0, 0)
@@ -561,7 +562,7 @@ class BaseLevel(ABC):
 
     def draw_template(self):
         "Some drawing actions that should happen in (almost) every instance."
-        pyxel.cls(0)
+        pyxel.cls(self.bgcolor)
         if self.check_anyone_alive():
             pyxel.camera()
             pyxel.bltm(0, 0, 1, scroll_x, self.draw_v, 128, 128, 0)
