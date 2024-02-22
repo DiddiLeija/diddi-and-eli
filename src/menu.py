@@ -26,7 +26,7 @@ class Menu(BaseLevel):
         elif self.stage == "start":
             # Just get into the next window
             self.finished = True
-            self.next = "one"
+            self.next = "intro"
         elif self.stage == "players":
             if pyxel.btnp(pyxel.KEY_1):
                 # Option 1 - singleplayer, Diddi
