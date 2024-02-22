@@ -75,8 +75,8 @@ class Intro(BaseScene):
         (0, 0, "Lady Alix: Hi, Diddi and Eli!\n\nDiddi and Eli: Hi!"),
         (0, 0, "Lady Alix: I need your help,\nfolks. Our enemy, THE SCALER,\nis coming to invade us."),
         (0, 0, "Lady Alix: If the Scaler finds\nus, we'll be doomed to total\ndestruction!"),
-        (0, 0, "Diddi: We'll stop him!"),
-        (0, 0, "Eli: Yeah! Let's go!"),
+        (0, 0, "Diddi: We'll stop him!\n\nEli: Yeah!! Let's go!"),
+        (0, 0, "Lady Alix: Great! I'll see you\nlater. Be careful!"),
         (128, 0, "And now, the adventure begins...\n\n\nCLICK SPACE TO START LEVEL 1!")
     ]
     nextseq = "one"
