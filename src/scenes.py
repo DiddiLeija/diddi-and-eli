@@ -74,8 +74,9 @@ class Intro(BaseScene):
         (0, 0, "Diddi and Eli are chatting\nwith Lady Alix, their boss..."),
         (0, 0, "Lady Alix: Hi, Diddi and Eli!\n\nDiddi and Eli: Hi!"),
         (0, 0, "Lady Alix: I need your help,\nfolks. Our enemy, THE SCALER,\nis coming to invade us."),
-        (0, 0, "Lady Alix: If the Scaler finds\nus, we'll be doomed to total\ndestruction!"),
-        (0, 0, "Diddi: We'll stop him!\n\nEli: Yeah!! Let's go!"),
+        (0, 0, "Lady Alix: The Scaler is\nwidely know to be a formidable\nenemy, a destroyer!"),
+        (256, 0, "Lady Alix: If the Scaler finds\nus, we'll be doomed to TOTAL\nDESTRUCTION! Forever!"),
+        (384, 0, "Diddi: We'll stop him!\n\nEli: Yeah!! Let's go!"),
         (0, 0, "Lady Alix: Great! I'll see you\nlater. Be careful!"),
         (128, 0, "And now, the adventure begins...\n\n\nCLICK SPACE TO START LEVEL 1!")
     ]
