@@ -38,6 +38,7 @@ class BaseScene(BaseLevel):
 
     def __init__(self, player_choice):
         self.sno = 0  # for a reason, we'll have to reset this manually?
+        self.gen_clouds = False
         BaseLevel.__init__(self, player_choice)
 
     def create_characters(self):

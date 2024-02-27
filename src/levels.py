@@ -62,6 +62,10 @@ class One(BaseLevel):
         "856 56"
     ]
     bgcolor = 12
+    acceptable_clouds = [
+        (0, 0),
+        (16, 0)
+    ]
 
     def update(self):
         "Pyxel-like 'update' function."

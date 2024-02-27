@@ -442,6 +442,31 @@ class Coin:
             return
         pyxel.blt(self.x, self.y, 0, 0, 8, 8, 8, 0)
 
+# === Clouds ===
+
+class Cloud:
+    "A sprite that's drawn in the background, usually representing clouds."
+    alive = False
+
+    def __init__(self, x, y, draw_x, draw_y):
+        self.x = x
+        self.y = y
+        self.draw_x = draw_x
+        self.draw_y = draw_y
+        self.alive = True
+        self.speed = random.randint(1, 2)
+    
+    def update(self):
+        self.x -= self.speed
+        if self.x <= 0:
+            self.alive = False
+    
+    def draw(self):
+        if not self.alive:
+            return
+        # NOTE: Clouds are all stored at resource image 1, take that in count!
+        pyxel.blt(self.x, self.y, 1, self.draw_x, self.draw_y, 16, 16, 0)
+
 
 # === Base level (removed from troubled 'src.baseclasses') ===
 
@@ -462,6 +487,10 @@ class BaseLevel(ABC):
     music_vol = 0
     reset_coin_counter = False  # False by default, should be True for Menu instances
     bgcolor = 0  # Customizable background color, set to 0 by default
+    gen_clouds = True  # Shall we add some clouds to the background?
+    acceptable_clouds = list()  # A list of cloud coordinates that may be used (if gen_louds=True)
+    clouds = list()  # list of clouds
+    cloud_freq = 25  # the greater this number is, the less the chances to spawn a cloud
 
     def __init__(self, player_choice):
         pyxel.camera(0, 0)
@@ -469,6 +498,8 @@ class BaseLevel(ABC):
         self.already_spawned = list()
         self.enemies = list()
         self.coins = list()
+        self.clouds = list()
+        self.generate_clouds(128)
         self.create_characters()
         global Y_LEVEL, TOTAL_COINS
         Y_LEVEL = self.draw_v
@@ -519,10 +550,20 @@ class BaseLevel(ABC):
                 if key in self.coin_template and key not in self.already_spawned:
                     self.coins.append(Coin(x * 8, y * 8))
                     self.already_spawned.append(key)
+    
+    def generate_clouds(self, right_x):
+        if random.randint(0, self.cloud_freq) != 1:
+            return None
+        draw_comb = random.choice(self.acceptable_clouds)
+        self.clouds.append(Cloud(right_x, random.randint(0, 80), draw_comb[0], draw_comb[1]))
+        # print("generated cloud")
 
     def update_template(self):
         "Some update actions that should happen in (almost) every instance."
         global TOTAL_COINS
+        for i in self.clouds:
+            # this is a rutinary task, so we don't need to give it conditions.
+            i.update()
         for p in self.player:
             p.update()
             for c in self.coins:
@@ -559,12 +600,19 @@ class BaseLevel(ABC):
         #    self.scroll_x = min(self.x - self.SCROLL_BORDER_X, 240 * 8)
         #    self.spawn(last_scroll_x + 128, scroll_x + 127)
         self.spawn(scroll_x, scroll_x + 127)
+        if self.gen_clouds:
+            self.generate_clouds(scroll_x + 127)
+            # print("invoked generation")
 
     def draw_template(self):
         "Some drawing actions that should happen in (almost) every instance."
         pyxel.cls(self.bgcolor)
         if self.check_anyone_alive():
             pyxel.camera()
+            for i in self.clouds:
+                # we've put this block right before the bakground drawing, to avoid clouds
+                # to be in front of the scenario, which would be catastrophic :)
+                i.draw()
             pyxel.bltm(0, 0, 1, scroll_x, self.draw_v, 128, 128, 0)
             pyxel.camera(scroll_x, 0)  # test: self.draw_v or 0?
             for p in self.player:
