@@ -454,7 +454,7 @@ class Cloud:
         self.draw_x = draw_x
         self.draw_y = draw_y
         self.alive = True
-        self.speed = random.randint(1, 2)
+        self.speed = random.randint(2, 3)
     
     def update(self):
         self.x -= self.speed
@@ -491,6 +491,7 @@ class BaseLevel(ABC):
     acceptable_clouds = list()  # A list of cloud coordinates that may be used (if gen_louds=True)
     clouds = list()  # list of clouds
     cloud_freq = 25  # the greater this number is, the less the chances to spawn a cloud
+    already_spawned_cloud = 0
 
     def __init__(self, player_choice):
         pyxel.camera(0, 0)
@@ -499,6 +500,7 @@ class BaseLevel(ABC):
         self.enemies = list()
         self.coins = list()
         self.clouds = list()
+        self.already_spawned_cloud = 0
         self.generate_clouds(128)
         self.create_characters()
         global Y_LEVEL, TOTAL_COINS
@@ -552,10 +554,13 @@ class BaseLevel(ABC):
                     self.already_spawned.append(key)
     
     def generate_clouds(self, right_x):
+        if (right_x in range(self.already_spawned_cloud+1, self.already_spawned_cloud+16)):
+            return
         if random.randint(0, self.cloud_freq) != 1:
-            return None
+            return
         draw_comb = random.choice(self.acceptable_clouds)
         self.clouds.append(Cloud(right_x, random.randint(0, 80), draw_comb[0], draw_comb[1]))
+        self.already_spawned_cloud = right_x
         # print("generated cloud")
 
     def update_template(self):

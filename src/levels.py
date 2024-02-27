@@ -64,6 +64,7 @@ class One(BaseLevel):
     bgcolor = 12
     acceptable_clouds = [
         (0, 0),
+        (0, 0),  # Augment the chances of getting a big cloud ;)
         (16, 0)
     ]
 
