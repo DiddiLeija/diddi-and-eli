@@ -42,6 +42,26 @@ __all__ = (
 SCROLL_BORDER_X = 80
 WALL_TILE_X = 4
 TILES_FLOOR = [
+    (5, 0),  # Grass - Up
+    (5, 1),  # Grass - Down
+    (6, 0),  # Ice - Up
+    (6, 1),  # Ice - Down
+    (7, 0),  # Purple bricks
+    (7, 1),  # Red bricks
+    (5, 2),  # Sand - Up
+    (5, 3),  # Sand - Down
+    (6, 2),  # Box - 1
+    (6, 3),  # Box - 2
+    (7, 2),  # Dirt - Up
+    (7, 3),  # Dirt - Down
+    # (0, 8), # Gate (L, 1)
+    # (0, 9), # Gate (L, 2)
+    # (1, 8), # Gate (R, 1)
+    # (1, 9), # Gate (R, 2)
+    (7, 8),  # Button support (h)
+    (7, 9),  # Button support (v)
+]
+TILES_FLOOR_OLD = [
     (40, 0),   # Grass - Up
     (40, 8),   # Grass - Down
     (48, 0),   # Ice - Up
