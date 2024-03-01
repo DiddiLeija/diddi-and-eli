@@ -10,11 +10,6 @@ slimehorns, robots, etc), coins, and NPCs.
 # 
 # To be honest, "Diddi and Eli" can be considered a spiritual
 # successor to "Abandon the ship!"...
-#
-# TODO: Get sure everything here can be invoked
-#       from the level classes. Otherwise, will we
-#       have to adapt the player's code, or even come
-#       up with a different solution???
 
 import random
 import math
@@ -54,10 +49,10 @@ TILES_FLOOR = [
     (6, 3),  # Box - 2
     (7, 2),  # Dirt - Up
     (7, 3),  # Dirt - Down
-    (0, 8), # Gate (L, 1)
-    (0, 9), # Gate (L, 2)
-    (1, 8), # Gate (R, 1)
-    (1, 9), # Gate (R, 2)
+    (0, 8),  # Gate (L, 1)
+    (0, 9),  # Gate (L, 2)
+    (1, 8),  # Gate (R, 1)
+    (1, 9),  # Gate (R, 2)
     (7, 8),  # Button support (h)
     (7, 9),  # Button support (v)
 ]
@@ -242,7 +237,6 @@ class Player1:
         if self.x > scroll_x + SCROLL_BORDER_X:
             # The 'scroll_x' stuff is located here, but may also happen
             # in 'Player2.update' in either Eli-mode or multiplayer mode.
-            # last_scroll_x = scroll_x  # FIXME: last_scroll_x is unused here?
             scroll_x = min(self.x - SCROLL_BORDER_X, 240 * 8)
         if self.y >= 120:
             # We fell down!
@@ -564,7 +558,6 @@ class BaseLevel(ABC):
         draw_comb = random.choice(self.acceptable_clouds)
         self.clouds.append(Cloud(right_x, random.randint(0, 80), draw_comb[0], draw_comb[1]))
         self.already_spawned_cloud = right_x
-        # print("generated cloud")
 
     def update_template(self):
         "Some update actions that should happen in (almost) every instance."
@@ -601,16 +594,9 @@ class BaseLevel(ABC):
             return
         for e in self.enemies:
             e.update()
-        # NOTE: turns out this portion of code is never executed!?
-        #if player_x > scroll_x + SCROLL_BORDER_X:
-        #    # Move the screen if needed
-        #    last_scroll_x = scroll_x
-        #    self.scroll_x = min(self.x - self.SCROLL_BORDER_X, 240 * 8)
-        #    self.spawn(last_scroll_x + 128, scroll_x + 127)
         self.spawn(scroll_x, scroll_x + 127)
         if self.gen_clouds:
             self.generate_clouds(scroll_x + 127)
-            # print("invoked generation")
 
     def draw_template(self):
         "Some drawing actions that should happen in (almost) every instance."
@@ -622,7 +608,7 @@ class BaseLevel(ABC):
                 # to be in front of the scenario, which would be catastrophic :)
                 i.draw()
             pyxel.bltm(0, 0, 1, scroll_x, self.draw_v, 128, 128, 0)
-            pyxel.camera(scroll_x, 0)  # test: self.draw_v or 0?
+            pyxel.camera(scroll_x, 0)
             for p in self.player:
                 p.draw()
                 for b in p.bullets:
