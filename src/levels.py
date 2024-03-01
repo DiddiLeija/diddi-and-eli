@@ -8,6 +8,7 @@ class TestLevel(BaseLevel):
     """
     Test level for checking world textures/behavior.
     """
+    gen_clouds = False
     draw_v = 640
 
     def update(self):

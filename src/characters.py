@@ -61,26 +61,6 @@ TILES_FLOOR = [
     (7, 8),  # Button support (h)
     (7, 9),  # Button support (v)
 ]
-TILES_FLOOR_OLD = [
-    (40, 0),   # Grass - Up
-    (40, 8),   # Grass - Down
-    (48, 0),   # Ice - Up
-    (48, 8),   # Ice - Down
-    (56, 0),   # Purple bricks
-    (56, 8),   # Red bricks
-    (40, 16),  # Sand - Up
-    (40, 24),  # Sand - Down
-    (48, 16),  # Box 1
-    (48, 24),  # Box 2
-    (56, 16),  # Dirt - Up
-    (56, 24),  # Dirt - Down
-    (0, 64),   # Gate (L, 1)
-    (0, 72),   # Gate (L, 2)
-    (8, 64),   # Gate (R, 1)
-    (8, 72),   # Gate (R, 2)
-    (56, 64),  # Button support (H)
-    (56, 72),  # Button support (v)
-]
 scroll_x = 0
 Y_LEVEL = 0
 TOTAL_COINS = 0
@@ -574,6 +554,9 @@ class BaseLevel(ABC):
                     self.already_spawned.append(key)
     
     def generate_clouds(self, right_x):
+        # TODO: Group all the "if ...: return" blocks found here?
+        if not self.gen_clouds:
+            return
         if (right_x in range(self.already_spawned_cloud+1, self.already_spawned_cloud+16)):
             return
         if random.randint(0, self.cloud_freq) != 1:
