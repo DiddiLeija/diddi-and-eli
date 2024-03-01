@@ -17,7 +17,7 @@ class TestLevel(BaseLevel):
         if self.check_reset():
             self.next = "menu"
         elif self.finished:
-            self.next = "two"
+            self.next = "menu"
         self.update_template()
     
     def draw(self):

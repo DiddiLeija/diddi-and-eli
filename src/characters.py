@@ -613,6 +613,11 @@ class BaseLevel(ABC):
                 if e.alive:
                     if e.x in range(p.x-4, p.x+8) and e.y in range(p.y-4, p.y+8):
                         p.alive = False
+            if p.alive and self.ending_button is not None:
+                if self.ending_button.x in range(p.x-4, p.x+8):
+                    if self.ending_button.y in range(p.y-4, p.y+8):
+                        self.finished = True
+                        break
         if not self.check_anyone_alive():
             self.lost = True
             self.finished = True
