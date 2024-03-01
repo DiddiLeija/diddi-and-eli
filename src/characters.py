@@ -461,6 +461,28 @@ class Cloud:
         # NOTE: Clouds are all stored at resource image 1, take that in count!
         pyxel.blt(self.x, self.y, 1, self.draw_x, self.draw_y, 16, 16, 0)
 
+# === Button ===
+
+class Button:
+    """
+    Buttons are a special and invisible NPCs whose function is to "mark"
+    the end of a level. Once a player touches a button, the level will end.
+
+    We don't draw buttons because they're already drawn at the tilemap!
+    """
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    
+    def update(self):
+        # TODO: determine if "update" should be defined here or not.
+        pass
+
+    def draw(self):
+        # TODO: determine if "draw" should be defined here or not.
+        pass
+
 
 # === Base level (removed from troubled 'src.baseclasses') ===
 
@@ -486,6 +508,8 @@ class BaseLevel(ABC):
     clouds = list()  # list of clouds
     cloud_freq = 25  # the greater this number is, the less the chances to spawn a cloud
     already_spawned_cloud = 0
+    button_location = ""  # a string representing the coordinates of the "ending button" location
+    ending_button = None  # the ending button object
 
     def __init__(self, player_choice):
         pyxel.camera(0, 0)
@@ -539,14 +563,18 @@ class BaseLevel(ABC):
         for x in range(left_x, right_x + 1):
             for y in range(16):
                 key = f"{x*8} {y*8}"
-                if key in self.enemy_template.keys() and key not in self.already_spawned:
+                if key in self.already_spawned:
+                    continue
+                if key in self.enemy_template.keys():
                     mobclass = self.enemy_template[key]
                     self.enemies.append(mobclass(x * 8, y * 8))
                     self.already_spawned.append(key)
-                if key in self.coin_template and key not in self.already_spawned:
+                if key in self.coin_template:
                     self.coins.append(Coin(x * 8, y * 8))
                     self.already_spawned.append(key)
-    
+                if key == self.button_location:
+                    self.ending_button = Button(x * 8, y * 8)
+
     def generate_clouds(self, right_x):
         # TODO: Group all the "if ...: return" blocks found here?
         if not self.gen_clouds:
