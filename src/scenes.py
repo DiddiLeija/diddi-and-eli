@@ -52,6 +52,10 @@ class BaseScene(BaseLevel):
             self.next = "menu"
         elif self.finished:
             self.next = self.nextseq
+        if pyxel.btnp(pyxel.KEY_DELETE):
+            self.finished = True
+            self.next = self.nextseq
+            return
         if pyxel.btnp(pyxel.KEY_SPACE):
             self.sno += 1
             if self.sno >= len(self.scenes):
@@ -66,6 +70,7 @@ class BaseScene(BaseLevel):
         pyxel.rect(0, 80, 128, 50, self.boxcol1)
         pyxel.rect(0, 79, 128, 1, self.boxcol2)
         draw_text(st[2], 1, 81)
+        draw_text("DELETE: skip\nSPACE: continue", 1, 112)
         draw_text(">>", 120, 120)
 
 
