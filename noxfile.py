@@ -1,5 +1,7 @@
 import nox
 
+nox.options.sessions = ("format", "lint")
+
 files = (
     "main.py",
     "noxfile.py",
@@ -23,3 +25,15 @@ def lint(session: nox.Session):
     session.install("-r", "requirements.txt")
     session.install("-r", "test-requirements.txt")
     session.run("ruff", "check", *files)  # TODO: ignore certain rules?
+
+@nox.session(name="reset-savedata")
+def reset_savedata(session: nox.Session):
+    "Clean up 'savedata.json', which should not have any contents, use it carefully."
+    new_data = '{"level": "intro"}'
+    session.run(
+        "python",
+        "-c",
+        "import io; js = io.open('savedata.json', 'w'); "
+        f"js.write('{new_data}'); "
+        "js.close()"
+    )

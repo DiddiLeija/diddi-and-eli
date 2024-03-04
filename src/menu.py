@@ -1,10 +1,11 @@
 import pyxel
 
 from .characters import BaseLevel
-from .tools import draw_text
+from .tools import draw_text, get_savedata
 
 class Menu(BaseLevel):
     "Menu window."
+    saved_stage = ""
     stage = "main"
     player_choice = 0
     enemy_template = dict()
@@ -12,22 +13,41 @@ class Menu(BaseLevel):
     music_vol = 5
     reset_coin_counter = True
     gen_clouds = False
+    saved_available = False
+
+    def __init__(self, player_choice=None):
+        BaseLevel.__init__(self, player_choice)
+        # and here comes the funny part: get and save level data
+        self.update_saved_stage()
+    
+    def update_saved_stage(self):
+        self.saved_stage = get_savedata()
 
     def create_characters(self):
         pass
 
     def update(self):
         "Pyxel-like 'update' function."
+        self.update_saved_stage()
+        self.saved_available = True
+        if self.saved_stage["level"] == "intro":
+            self.saved_available = False
         self.check_quit()
         if self.stage == "main":
             if pyxel.btnp(pyxel.KEY_1):
                 self.stage = "start"
             elif pyxel.btnp(pyxel.KEY_2):
+                self.stage = "startsaved"
+            elif pyxel.btnp(pyxel.KEY_3):
                 self.stage = "players"
         elif self.stage == "start":
             # Just get into the next window
             self.finished = True
             self.next = "intro"
+        elif self.stage == "startsaved":
+            # Move to the saved window
+            self.finished = True
+            self.next = self.saved_stage["level"]
         elif self.stage == "players":
             if pyxel.btnp(pyxel.KEY_1):
                 # Option 1 - singleplayer, Diddi
@@ -54,8 +74,9 @@ class Menu(BaseLevel):
         # Main design
         if self.stage == "main":
             draw_text("== Diddi and Eli ==", 23, 33)
-            draw_text("[1] Start", 23, 45)
-            draw_text("[2] Player mode", 23, 53)
+            draw_text("[1] Start new", 23, 45)
+            draw_text("[2] Start checkpoint", 23, 53)
+            draw_text("[3] Select players", 23, 61)
         # Players selection
         if self.stage == "players":
             draw_text("== Select mode ==", 23, 33)

@@ -5,7 +5,7 @@ Diddi and Eli: A platformer game with scaling challenges.
 import pyxel
 
 from src import stages_list
-from src.tools import init_class
+from src.tools import init_class, write_savedata
 
 
 class Main:
@@ -26,6 +26,8 @@ class Main:
         # Also, keep memory of your player choice :)
         if self.situation.finished:
             tmp = self.situation.player_choice
+            if self.situation.next != "menu":
+                write_savedata({"level": self.situation.next})
             self.situation = init_class(stages_list[self.situation.next], tmp)
             del(tmp)  # we have to remove 'tmp' ASAP
     
