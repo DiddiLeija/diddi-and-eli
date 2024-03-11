@@ -1,7 +1,7 @@
 "Library containing all the level classes, which honestly are pretty simple."
 
 
-from .characters import BaseLevel, Onion, Robot
+from .characters import BaseLevel, Onion, Robot, Button
 
 
 class TestLevel(BaseLevel):
@@ -90,6 +90,7 @@ class One(BaseLevel):
         (0, 0),  # Augment the chances of getting a big cloud ;)
         (16, 0)
     ]
+    ending_button = Button(1064, 96)
 
     def update(self):
         "Pyxel-like 'update' function."
