@@ -5,14 +5,14 @@ from . import menu, levels, scenes
 __all__ = ("stages_list")
 
 # TODO: fixme -- these objects should be Python classes
-Two = None  # two.Two
-Three = None  # three.Three
-Four = None  # four.Four
-Five = None  # five.Five
+Three = None  # levels.Three
+Four = None  # levels.Four
+Five = None  # levels.Five
 # NOTE: Below I have the already-linked objects
 Menu = menu.Menu
 Intro = scenes.Intro
 One = levels.One
+Two = levels.Two
 
 # Below there's a dictionary with all the objects for further use
 stages_list = {

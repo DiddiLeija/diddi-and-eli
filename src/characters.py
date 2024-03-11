@@ -589,6 +589,10 @@ class BaseLevel(ABC):
 
     def update_template(self):
         "Some update actions that should happen in (almost) every instance."
+        if self.finished:
+            # This is likely not going to happen, but we added it
+            # here by now, just in case... ;)
+            return
         global TOTAL_COINS
         for i in self.clouds:
             # this is a rutinary task, so we don't need to give it conditions.
