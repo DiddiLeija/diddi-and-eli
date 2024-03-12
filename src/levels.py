@@ -112,15 +112,29 @@ class Two(BaseLevel):
     """
     Level Two: Mud Caves
 
-    A complex set of connected caves with trickier
+    A complex set of interconnected caves with trickier
     spots and a bit more enemies.
 
     Mobs: Onions, Robots.
     """
     draw_v = 128
-    enemy_template = {}
+    enemy_template = {
+        "160 184": Onion,
+        "184 184": Onion,
+        "280 232": Robot,
+        "320 232": Robot,
+        "448 160": Robot,
+        "544 200": Onion,
+        "737 200": Robot,
+        "872 176": Onion,
+        "928 176": Robot,
+        "952 176": Robot,
+        "1072 216": Onion,
+        "1088 216": Onion,
+        "1104 216": Onion
+    }
     coin_template = []
-    bgcolor = 1  # FIXME: this may conflict with Diddi and Eli's colors
+    bgcolor = 12  # TODO: we want color 1, but that may conflict with Diddi and Eli's colors
     acceptable_clouds = [(16, 16)]  # Only one kind of clouds
     ending_button = Button(1192, 192)
 
