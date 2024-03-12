@@ -97,9 +97,9 @@ class One(BaseLevel):
         self.check_quit()
         if self.check_reset():
             self.next = "menu"
-        self.update_template()
         if self.finished:
             self.next = "two"
+        self.update_template()
     
     def draw(self):
         "pyxel-like 'update' function."
@@ -179,9 +179,9 @@ class Two(BaseLevel):
         self.check_quit()
         if self.check_reset():
             self.next = "menu"
-        self.update_template()
         if self.finished:
-            self.next = "three"
+            self.next = "two"
+        self.update_template()
     
     def draw(self):
         "Pyxel-like 'update' function."

@@ -64,7 +64,9 @@ def adjust_x(real_x):
     return scroll_x + real_x
 
 def get_tile(tile_x, tile_y):
-    return pyxel.tilemaps[1].pget(tile_x, Y_LEVEL + tile_y)
+    # print(tile_x, tile_y)
+    tile_y += Y_LEVEL
+    return pyxel.tilemaps[1].pget(tile_x, tile_y)
 
 def detect_collision(x, y, dy):
     x1 = x // 8
