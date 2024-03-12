@@ -35,7 +35,7 @@ class One(BaseLevel):
     easiest level in the game, so it doesn't contain
     a lot of enemies or tricky spots.
 
-    Mobs: Onions (7), Robots (2)
+    Mobs (9): Onions (7), Robots (2)
     """
     enemy_template = {
         "120 88": Onion,
@@ -115,7 +115,7 @@ class Two(BaseLevel):
     A complex set of interconnected caves with trickier
     spots and a bit more enemies.
 
-    Mobs: Onions, Robots.
+    Mobs (12): Onions (6), Robots (6).
     """
     draw_v = 128
     enemy_template = {
@@ -133,7 +133,43 @@ class Two(BaseLevel):
         "1088 216": Onion,
         "1104 216": Onion
     }
-    coin_template = []
+    coin_template = [
+        "48 200",
+        "64 208",
+        "80 216",
+        "96 224",
+        "248 200",
+        "256 200",
+        "264 200",
+        "280 176",
+        "288 176",
+        "196 176",
+        "312 152",
+        "320 152",
+        "328 152",
+        "448 152",
+        "456 152",
+        "464 152",
+        "482 152",
+        "490 152",
+        "528 208",
+        "536 200",
+        "544 192",
+        "552 200",
+        "560 208",
+        "720 184",
+        "720 192",
+        "728 184",
+        "728 192",
+        "784 168",
+        "784 176",
+        "792 168",
+        "792 176",
+        "984 168",
+        "992 160",
+        "1000 152",
+        "1008 160"
+    ]
     bgcolor = 12  # TODO: we want color 1, but that may conflict with Diddi and Eli's colors
     acceptable_clouds = [(16, 16)]  # Only one kind of clouds
     ending_button = Button(1192, 192)
