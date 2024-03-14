@@ -90,3 +90,45 @@ class Intro(BaseScene):
     bgcolor = 12
     boxcol1 = 5
     boxcol2 = 13
+
+
+class PreBoss(BaseScene):
+    "A scene where Diddi and Eli first meet the Scaler, who challenges them."
+    scenes = [
+        (0, 128, "After many challenges, Diddi\nand Eli have arrived to\nthe Scaler's fortress..."),
+        (0, 128, "Eli: Oof! This has been tough!"),
+        (0, 128, "Diddi: Shh! Someone's coming."),
+        (128, 128, "... IT'S THE SCALER!!"),
+        (256, 128, "Scaler: So... are you the\nlittle pesky bugs who wanted to\nchallenge me?"),
+        (256, 128, "Scaler: If so, I'm sure you\ncould defeat my unlimited\npower in a battle..."),
+        (256, 128, "Scaler: ... IF YOU DARE!"),
+        (128, 128, "Diddi: We'll stop you!\n\nEli: Sure! You'll see!"),
+        (256, 128, "Scaler: Ok then, try to\ncatch me and we'll fight!\n\nCLICK SPACE TO START LEVEL 5!")
+    ]
+    nextseq = "five"
+    bgcolor = 0
+    boxcol1 = 5
+    boxcol2 = 6
+
+
+class Final(BaseScene):
+    "The ending scene of Diddi and Eli."
+    scenes = [
+        (0, 256, "At last, our heroes defeated\nthe Scaler and saved the\nplanet!"),
+        (
+            0,
+            256,
+            "Lady Alix: You did it, the\nScaler and his troops are now\n"
+            "gone, and we're totally safe\nagain, thanks!"
+        ),
+        (0, 256, "Diddi and Eli: It's been a\npleasure to help..."),
+        (
+            128,
+            256,
+            "Lady Alix: Anyway, this will\ndeserve a day-long celebration!\n\nEli: Yeah!"),
+        (256, 256, "=== THE END ===\nThanks for playing! <3\n\nPRESS SPACE TO SEE THE MENU")
+    ]
+    nextseq = "menu"
+    bgcolor = 12
+    boxcol1 = 5
+    boxcol2 = 13

@@ -13,6 +13,8 @@ Menu = menu.Menu
 Intro = scenes.Intro
 One = levels.One
 Two = levels.Two
+PreBoss = scenes.PreBoss
+Final = scenes.Final
 
 # Below there's a dictionary with all the objects for further use
 stages_list = {
@@ -21,8 +23,8 @@ stages_list = {
     "two": Two,
     "three": Three,
     "four": Four,
-    "preboss": None,  # TODO: A non-playable pre-boss sequence
+    "preboss": PreBoss,
     "five": Five,
-    "final": None,  # TODO: A non-playable closing sequence
+    "final": Final,
     "menu": Menu,
 }
