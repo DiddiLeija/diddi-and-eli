@@ -41,4 +41,5 @@ def get_savedata():
 def write_savedata(data):
     "Write the save data from scratch."
     with io.open("savedata.json", "w") as js:
-        js.write(json.dumps(data, sort_keys=True))
+        new_data = check_savedata(data)
+        js.write(json.dumps(new_data, sort_keys=True))
