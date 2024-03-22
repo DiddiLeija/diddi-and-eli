@@ -180,7 +180,7 @@ class Two(BaseLevel):
         if self.check_reset():
             self.next = "menu"
         if self.finished:
-            self.next = "two"
+            self.next = "three"
         self.update_template()
     
     def draw(self):

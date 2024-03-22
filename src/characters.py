@@ -65,7 +65,6 @@ def adjust_x(real_x):
 
 def get_tile(tile_x, tile_y):
     # print(tile_x, tile_y)
-    tile_y += Y_LEVEL
     return pyxel.tilemaps[1].pget(tile_x, tile_y)
 
 def detect_collision(x, y, dy):
@@ -88,6 +87,9 @@ def is_wall(x, y):
     return tile in TILES_FLOOR or tile[0] >= WALL_TILE_X
 
 def push_back(x, y, dx, dy):
+    # TODO: We have to fix this function to make it work on
+    #       level 2 and above, there's currently a bug with that.
+    y += Y_LEVEL
     abs_dx = abs(dx)
     abs_dy = abs(dy)
     if abs_dx > abs_dy:
@@ -591,10 +593,6 @@ class BaseLevel(ABC):
 
     def update_template(self):
         "Some update actions that should happen in (almost) every instance."
-        if self.finished:
-            # This is likely not going to happen, but we added it
-            # here by now, just in case... ;)
-            return
         global TOTAL_COINS
         for i in self.clouds:
             # this is a rutinary task, so we don't need to give it conditions.
