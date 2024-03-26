@@ -91,15 +91,7 @@ class One(BaseLevel):
         (16, 0)
     ]
     ending_button = Button(1064, 96)
-
-    def update(self):
-        "Pyxel-like 'update' function."
-        self.check_quit()
-        if self.check_reset():
-            self.next = "menu"
-        if self.finished:
-            self.next = "two"
-        self.update_template()
+    finished_next = "two"
     
     def draw(self):
         "pyxel-like 'update' function."
@@ -173,15 +165,7 @@ class Two(BaseLevel):
     bgcolor = 12  # TODO: we want color 1, but that may conflict with Diddi and Eli's colors
     acceptable_clouds = [(16, 16)]  # Only one kind of clouds
     ending_button = Button(1192, 192)
-
-    def update(self):
-        "Pyxel-like 'update' function."
-        self.check_quit()
-        if self.check_reset():
-            self.next = "menu"
-        if self.finished:
-            self.next = "three"
-        self.update_template()
+    finished_next = "three"
     
     def draw(self):
         "Pyxel-like 'update' function."

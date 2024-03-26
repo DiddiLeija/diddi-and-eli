@@ -83,6 +83,7 @@ def detect_collision(x, y, dy):
     return False
 
 def is_wall(x, y):
+    y += Y_LEVEL
     tile = get_tile(x // 8, y // 8)
     return tile in TILES_FLOOR or tile[0] >= WALL_TILE_X
 
@@ -514,6 +515,7 @@ class BaseLevel(ABC):
     already_spawned_cloud = 0
     button_location = ""  # a string representing the coordinates of the "ending button" location
     ending_button = None  # the ending button object
+    finished_next = ""  # next sequence in case a level ends succesfully
 
     def __init__(self, player_choice):
         pyxel.camera(0, 0)
@@ -527,6 +529,7 @@ class BaseLevel(ABC):
         self.create_characters()
         global Y_LEVEL, TOTAL_COINS
         Y_LEVEL = self.draw_v
+        # print(Y_LEVEL)
         if self.reset_coin_counter:
             TOTAL_COINS = 0
         self.spawn(0, 128)
@@ -655,9 +658,17 @@ class BaseLevel(ABC):
             for i in self.coins:
                 i.draw()
 
-    @abstractmethod
     def update(self):
-        pass
+        "Update function."
+        # NOTE: some levels/scenes may override this function.
+        self.check_quit()
+        if self.check_reset():
+            self.next = "menu"
+            return
+        if self.finished:
+            self.next = self.finished_next
+            return
+        self.update_template()
 
     @abstractmethod
     def draw(self):
