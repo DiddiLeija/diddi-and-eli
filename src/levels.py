@@ -88,6 +88,9 @@ class One(BaseLevel):
     ]
     ending_button = Button(1064, 96)
     finished_next = "two"
+    # this is a workaround to <https://github.com/DiddiLeija/diddi-and-eli/issues/5>
+    # TODO: Safely remove this workaround at some point
+    nextlevel = "two"
     
     def draw(self):
         "pyxel-like 'update' function."
@@ -162,6 +165,9 @@ class Two(BaseLevel):
     acceptable_clouds = [(16, 16)]  # Only one kind of clouds
     ending_button = Button(1192, 192)
     finished_next = "three"
+    # this is a workaround to <https://github.com/DiddiLeija/diddi-and-eli/issues/5>
+    # TODO: Safely remove this workaround at some point
+    nextlevel = "two"
     
     def draw(self):
         "Pyxel-like 'update' function."
