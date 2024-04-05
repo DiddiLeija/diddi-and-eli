@@ -81,11 +81,11 @@ def detect_collision(x, y, dy):
                 return True
     return False
 
-def is_wall(x, y, yzero):
+def is_wall(x, y):
     tile = get_tile(x // 8, y // 8)
     return tile in TILES_FLOOR or tile[0] >= WALL_TILE_X
 
-def push_back(x, y, dx, dy, yzero):
+def push_back(x, y, dx, dy):
     # TODO: We have to fix this function to make it work on
     #       level 2 and above, there's currently a bug with that.
     # (Update: arg 'yzero' should make this possible)
@@ -229,7 +229,7 @@ class Player1:
             self.dy = -8  # TODO: Adjust this in order to achieve realistic jumps
             self.already_jumping = True
         # Now operate the movement
-        self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy, self.yzero)
+        self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
         if self.x < scroll_x:
             self.x = scroll_x
         if self.y < self.yzero:
@@ -318,12 +318,12 @@ class Onion(BaseMob):
 
     def update(self):
         self.dx = self.direction
-        if self.direction < 0 and is_wall(self.x - 1, self.y + 4, self.yzero):
+        if self.direction < 0 and is_wall(self.x - 1, self.y + 4):
             self.direction = 1
-        elif self.direction > 0 and is_wall(self.x + 8, self.y + 4, self.yzero):
+        elif self.direction > 0 and is_wall(self.x + 8, self.y + 4):
             self.direction = -1
         self.dy = min(self.dy + 1, 3)
-        self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy, self.yzero)
+        self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
         if self.y >= (self.yzero + 120):
             self.alive = False
 
@@ -338,17 +338,17 @@ class Robot(BaseMob):
 
     def update(self):
         self.dx = self.direction
-        if is_wall(self.x, self.y + 8, self.yzero) or is_wall(self.x + 7, self.y + 8, self.yzero):
+        if is_wall(self.x, self.y + 8) or is_wall(self.x + 7, self.y + 8):
             if self.direction < 0 and (
-                is_wall(self.x - 1, self.y + 4, self.yzero) or not is_wall(self.x - 1, self.y + 8, self.yzero)
+                is_wall(self.x - 1, self.y + 4) or not is_wall(self.x - 1, self.y + 8)
             ):
                 self.direction = 1
             elif self.direction > 0 and (
-                is_wall(self.x + 8, self.y + 4, self.yzero) or not is_wall(self.x + 7, self.y + 8, self.yzero)
+                is_wall(self.x + 8, self.y + 4) or not is_wall(self.x + 7, self.y + 8)
             ):
                 self.direction = -1
         self.dy = min(self.dy + 1, 3)
-        self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy, self.yzero)
+        self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
         # NOTE: Unlke Onions, here we are not adding a "pitfall detector" here, because
         # in theory Robots never fall from platforms and reach y >= 120.
 
@@ -426,10 +426,9 @@ class Coin:
     "A coin that gives you points to brag about."
     alive = False
 
-    def __init__(self, x, y, yzero):
+    def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.yzero = yzero
         self.alive = True
 
     def update(self):
@@ -439,7 +438,7 @@ class Coin:
     def draw(self):
         if not self.alive:
             return
-        pyxel.blt(self.x, self.y - self.yzero, 0, 0, 8, 8, 8, 0)
+        pyxel.blt(self.x, self.y, 0, 0, 8, 8, 8, 0)
 
 # === Clouds ===
 
@@ -515,10 +514,6 @@ class BaseLevel(ABC):
     ending_button = None  # the ending button object
     finished_next = ""  # next sequence in case a level ends succesfully
 
-    # TODO: 'self.void_line', a y-level value where the charachters should die. Should
-    #       be equal to 'self.draw_v + 120'?
-    # void_line = None
-
     def __init__(self, player_choice):
         pyxel.camera(0, 0)
         self.player_choice = player_choice
@@ -558,11 +553,14 @@ class BaseLevel(ABC):
 
     def create_characters(self):
         if self.player_choice == 0:
-            self.player = [Player1(0, 0, self.draw_v)]
+            self.player = [Player1(0, self.draw_v, self.draw_v)]
         elif self.player_choice == 1:
-            self.player = [Player2(0, 0, self.draw_v)]
+            self.player = [Player2(0, self.draw_v, self.draw_v)]
         elif self.player_choice == 2:
-            self.player = [Player1(0, 0, self.draw_v), Player2(0, 10, self.draw_v)]
+            self.player = [
+                Player1(0, self.draw_v, self.draw_v),
+                Player2(0, self.draw_v + 10, self.draw_v)
+            ]
 
     def spawn(self, left_x, right_x):
         left_x = math.ceil(left_x / 8)
@@ -577,7 +575,7 @@ class BaseLevel(ABC):
                     self.enemies.append(mobclass(x * 8, y * 8, self.draw_v))
                     self.already_spawned.append(key)
                 if key in self.coin_template:
-                    self.coins.append(Coin(x * 8, y * 8, self.draw_v))
+                    self.coins.append(Coin(x * 8, y * 8))
                     self.already_spawned.append(key)
                 if key == self.button_location:
                     self.ending_button = Button(x * 8, y * 8)
