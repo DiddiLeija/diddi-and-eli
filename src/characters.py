@@ -57,7 +57,6 @@ TILES_FLOOR = [
     (7, 9),  # Button support (v)
 ]
 scroll_x = 0
-Y_LEVEL = 0
 TOTAL_COINS = 0
 
 def adjust_x(real_x):
@@ -83,14 +82,12 @@ def detect_collision(x, y, dy):
     return False
 
 def is_wall(x, y):
-    y += Y_LEVEL
     tile = get_tile(x // 8, y // 8)
     return tile in TILES_FLOOR or tile[0] >= WALL_TILE_X
 
 def push_back(x, y, dx, dy):
     # TODO: We have to fix this function to make it work on
     #       level 2 and above, there's currently a bug with that.
-    y += Y_LEVEL
     abs_dx = abs(dx)
     abs_dy = abs(dy)
     if abs_dx > abs_dy:
@@ -317,7 +314,6 @@ class Onion(BaseMob):
     direction = -1
 
     def update(self):
-        global Y_LEVEL
         self.dx = self.direction
         if self.direction < 0 and is_wall(self.x - 1, self.y + 4):
             self.direction = 1
@@ -325,8 +321,9 @@ class Onion(BaseMob):
             self.direction = -1
         self.dy = min(self.dy + 1, 3)
         self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
-        if self.y >= Y_LEVEL + 120:
-            self.alive = False
+        # TODO: Replace this!
+        # if self.y >= Y_LEVEL + 120:
+        #     self.alive = False
 
     def draw_template(self):
         u = 16 if self.direction < 0 else 24
@@ -527,9 +524,7 @@ class BaseLevel(ABC):
         self.already_spawned_cloud = 0
         self.generate_clouds(128)
         self.create_characters()
-        global Y_LEVEL, TOTAL_COINS
-        Y_LEVEL = self.draw_v
-        # print(Y_LEVEL)
+        global TOTAL_COINS
         if self.reset_coin_counter:
             TOTAL_COINS = 0
         self.spawn(0, 128)
