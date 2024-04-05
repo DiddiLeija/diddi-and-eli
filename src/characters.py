@@ -494,7 +494,7 @@ class BaseLevel(ABC):
     player_choice = 0  # 0 is Diddi, 1 is Eli, and 2 is multiplayer
     player = list()  # Amount of players involved
     finished = False  # Have we finished today? Can we go home now?
-    next = ""  # Where should we go after finishing
+    nextlevel = ""  # Where should we go after finishing, previously named "BaseLevel.next"
     lost = False  # Did we die??
     enemy_template = dict()  # Coordinates to spawn enemies, unique for each subclass
     coin_template = list()  # Coordinates to spawn coins, unique for each subclass
@@ -541,7 +541,7 @@ class BaseLevel(ABC):
     def check_reset(self) -> bool:
         if pyxel.btnp(pyxel.KEY_R):
             self.finished = True
-            self.next = "menu"
+            self.nextlevel = "menu"
             return True
         return False
 
@@ -628,7 +628,7 @@ class BaseLevel(ABC):
             self.finished = True
             self.startup()
             pyxel.playm(6)
-            self.next = "menu"
+            self.nextlevel = "menu"
             return
         for e in self.enemies:
             e.update()
@@ -661,10 +661,10 @@ class BaseLevel(ABC):
         # NOTE: some levels/scenes may override this function.
         self.check_quit()
         if self.check_reset():
-            self.next = "menu"
+            self.nextlevel = "menu"
             return
         if self.finished:
-            self.next = self.finished_next
+            self.nextlevel = self.finished_next
             return
         self.update_template()
 

@@ -49,18 +49,18 @@ class BaseScene(BaseLevel):
         "Pyxel-like 'update' function."
         self.check_quit()
         if self.check_reset():
-            self.next = "menu"
+            self.nextlevel = "menu"
         elif self.finished:
-            self.next = self.nextseq
+            self.nextlevel = self.nextseq
         if pyxel.btnp(pyxel.KEY_DELETE):
             self.finished = True
-            self.next = self.nextseq
+            self.nextlevel = self.nextseq
             return
         if pyxel.btnp(pyxel.KEY_SPACE):
             self.sno += 1
             if self.sno >= len(self.scenes):
                 self.finished = True
-                self.next = self.nextseq
+                self.nextlevel = self.nextseq
     
     def draw(self):
         "draw function."

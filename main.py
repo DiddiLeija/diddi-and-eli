@@ -26,9 +26,9 @@ class Main:
         # Also, keep memory of your player choice :)
         if self.situation.finished:
             tmp = self.situation.player_choice
-            if self.situation.next != "menu":
-                write_savedata({"level": self.situation.next})
-            self.situation = init_class(stages_list[self.situation.next], tmp)
+            if self.situation.nextlevel != "menu":
+                write_savedata({"level": self.situation.nextlevel})
+            self.situation = init_class(stages_list[self.situation.nextlevel], tmp)
             del(tmp)  # we have to remove 'tmp' ASAP
     
     def draw(self):
