@@ -10,7 +10,7 @@ from .characters import (
 
 
 class TestLevel(BaseLevel):
-    # Test level for checking world textures/behavior.
+    # Test level for checking full world textures/behavior.
     gen_clouds = False
     draw_v = 640
 
@@ -21,11 +21,6 @@ class TestLevel(BaseLevel):
         elif self.finished:
             self.nextlevel = "menu"
         self.update_template()
-    
-    def draw(self):
-        if self.finished:
-            return None
-        self.draw_template()
 
 
 class One(BaseLevel):
@@ -97,12 +92,6 @@ class One(BaseLevel):
     # NOTE: The same workaround is present in all the levels stored here...
     # TODO: Safely remove this workaround at some point?
     nextlevel = "two"
-    
-    def draw(self):
-        "pyxel-like 'update' function."
-        if self.finished:
-            return None
-        self.draw_template()
 
 
 class Two(BaseLevel):
@@ -172,12 +161,6 @@ class Two(BaseLevel):
     ending_button = Button(1192, 192)
     finished_next = "three"
     nextlevel = "three"
-    
-    def draw(self):
-        "Pyxel-like 'update' function."
-        if self.finished:
-            return None
-        self.draw_template()
 
 
 class Three(BaseLevel):
@@ -196,9 +179,3 @@ class Three(BaseLevel):
     acceptable_clouds = [(32, 0)]
     finished_next = "four"
     nextlevel = "four"
-
-    def draw(self):
-        "Pyxel-like 'update' function."
-        if self.finished:
-            return None
-        self.draw_template()

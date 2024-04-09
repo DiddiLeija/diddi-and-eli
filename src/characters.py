@@ -14,7 +14,7 @@ slimehorns, robots, etc), coins, and NPCs.
 import random
 import math
 
-from abc import ABC, abstractmethod
+from abc import ABC
 
 import pyxel
 
@@ -665,7 +665,7 @@ class BaseLevel(ABC):
                 i.draw()
 
     def update(self):
-        "Update function."
+        "Generic update function."
         # NOTE: some levels/scenes may override this function.
         self.check_quit()
         if self.check_reset():
@@ -676,6 +676,8 @@ class BaseLevel(ABC):
             return
         self.update_template()
 
-    @abstractmethod
     def draw(self):
-        pass
+        "Generic draw function."
+        if self.finished:
+            return
+        self.draw_template()
