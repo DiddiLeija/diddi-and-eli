@@ -515,7 +515,7 @@ class BaseLevel(ABC):
     finished_next = ""  # next sequence in case a level ends succesfully
 
     def __init__(self, player_choice):
-        pyxel.camera(0, 0)
+        pyxel.camera(0, self.draw_v)
         self.player_choice = player_choice
         self.already_spawned = list()
         self.enemies = list()
@@ -566,8 +566,9 @@ class BaseLevel(ABC):
         left_x = math.ceil(left_x / 8)
         right_x = math.floor(right_x / 8)
         for x in range(left_x, right_x + 1):
-            for y in range(16):
+            for y in range(int(self.draw_v / 8), int(self.draw_v / 8) + 16):
                 key = f"{x*8} {y*8}"
+                # print(key)
                 if key in self.already_spawned:
                     continue
                 if key in self.enemy_template.keys():
@@ -589,7 +590,14 @@ class BaseLevel(ABC):
         if random.randint(0, self.cloud_freq) != 1:
             return
         draw_comb = random.choice(self.acceptable_clouds)
-        self.clouds.append(Cloud(right_x, random.randint(0, 80), draw_comb[0], draw_comb[1]))
+        self.clouds.append(
+            Cloud(
+                right_x,
+                random.randint(self.draw_v, self.draw_v + 80),
+                draw_comb[0],
+                draw_comb[1]
+            )
+        )
         self.already_spawned_cloud = right_x
 
     def update_template(self):
@@ -646,7 +654,7 @@ class BaseLevel(ABC):
                 # to be in front of the scenario, which would be catastrophic :)
                 i.draw()
             pyxel.bltm(0, 0, 1, scroll_x, self.draw_v, 128, 128, 0)
-            pyxel.camera(scroll_x, 0)
+            pyxel.camera(scroll_x, self.draw_v)
             for p in self.player:
                 p.draw()
                 for b in p.bullets:
