@@ -1,7 +1,12 @@
 "Library containing all the level classes, which honestly are pretty simple."
 
 
-from .characters import BaseLevel, Onion, Robot, Button
+from .characters import (
+    BaseLevel,
+    Onion,
+    Robot,
+    Button
+)
 
 
 class TestLevel(BaseLevel):
@@ -89,7 +94,8 @@ class One(BaseLevel):
     ending_button = Button(1064, 96)
     finished_next = "two"
     # this is a workaround to <https://github.com/DiddiLeija/diddi-and-eli/issues/5>
-    # TODO: Safely remove this workaround at some point
+    # NOTE: The same workaround is present in all the levels stored here...
+    # TODO: Safely remove this workaround at some point?
     nextlevel = "two"
     
     def draw(self):
@@ -165,10 +171,32 @@ class Two(BaseLevel):
     acceptable_clouds = [(16, 16)]  # Only one kind of clouds
     ending_button = Button(1192, 192)
     finished_next = "three"
-    # this is a workaround to <https://github.com/DiddiLeija/diddi-and-eli/issues/5>
-    # TODO: Safely remove this workaround at some point
-    nextlevel = "two"
+    nextlevel = "three"
     
+    def draw(self):
+        "Pyxel-like 'update' function."
+        if self.finished:
+            return None
+        self.draw_template()
+
+
+class Three(BaseLevel):
+    """
+    Level Three: Dusty Desert
+
+    A challenging desertic highlands, with a
+    cave, harder jumps and more enemies.
+
+    Mobs (): Onions (), Robots (), Desert Slimehorns ().
+    """
+    draw_v = 192
+    enemy_template = {}  # TODO: fixme!
+    coin_template = []  # TODO: fixme!
+    bgcolor = 14
+    acceptable_clouds = [(32, 0)]
+    finished_next = "four"
+    nextlevel = "four"
+
     def draw(self):
         "Pyxel-like 'update' function."
         if self.finished:
