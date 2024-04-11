@@ -362,9 +362,13 @@ class SlimehornBase(BaseMob):
     imgs = [tuple(), tuple()]
 
     def __init__(self, x, y, yzero=None, variant=False):
-        self.x = self.x
+        self.x = x
         self.y = y
         self.variant = variant
+        # NOTE: There's a very low chance for us to use
+        # "yzero" here, but in case we consider adding a
+        # Slimehorn movement feature in the future, I added it here.
+        self.yzero = yzero
 
     def update(self):
         # TODO: By now, Slimehorns won't move.
