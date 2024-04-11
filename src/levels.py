@@ -5,7 +5,8 @@ from .characters import (
     BaseLevel,
     Onion,
     Robot,
-    Button
+    Button,
+    Slimehorn2
 )
 
 
@@ -172,10 +173,16 @@ class Three(BaseLevel):
 
     Mobs (): Onions (), Robots (), Desert Slimehorns ().
     """
-    draw_v = 192
-    enemy_template = {}  # TODO: fixme!
+    draw_v = 256
+    enemy_template = {
+        # TODO: This level must have around ~12 mobs!
+        "104 320": Onion,
+        "120 304": Onion,
+        "176 288": Onion,
+        "232 288": Slimehorn2
+    }
     coin_template = []  # TODO: fixme!
-    bgcolor = 14
+    bgcolor = 12  # TODO: Get a sunset-like appearance (maybe with color 14?)
     acceptable_clouds = [(32, 0)]
     ending_button = Button(1480, 360)
     finished_next = "four"
