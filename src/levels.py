@@ -177,5 +177,6 @@ class Three(BaseLevel):
     coin_template = []  # TODO: fixme!
     bgcolor = 14
     acceptable_clouds = [(32, 0)]
+    ending_button = Button(1480, 360)
     finished_next = "four"
     nextlevel = "four"
