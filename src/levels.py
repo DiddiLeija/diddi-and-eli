@@ -6,6 +6,7 @@ from .characters import (
     Onion,
     Robot,
     Button,
+    Slimehorn1,
     Slimehorn2
 )
 
@@ -171,15 +172,26 @@ class Three(BaseLevel):
     A challenging desertic highlands, with a
     cave, harder jumps and more enemies.
 
-    Mobs (): Onions (), Robots (), Desert Slimehorns ().
+    Mobs (16): Onions (6), Robots (3), Desert Slimehorns (7).
     """
     draw_v = 256
     enemy_template = {
-        # TODO: This level must have around ~12 mobs!
         "104 320": Onion,
         "120 304": Onion,
         "176 288": Onion,
-        "232 288": Slimehorn2
+        "232 288": Slimehorn2,
+        "368 312": Robot,
+        "456 280": Slimehorn1,
+        "456 296": Robot,
+        "544 272": Slimehorn1,
+        "616 320": Robot,
+        "656 272": Slimehorn1,
+        "664 272": Slimehorn1,
+        "752 352": Onion,
+        "968 328": Onion,
+        "1120 312": Slimehorn1,
+        "1144 328": Slimehorn1,
+        "1360 312": Onion
     }
     coin_template = []  # TODO: fixme!
     bgcolor = 12  # TODO: Get a sunset-like appearance (maybe with color 14?)
