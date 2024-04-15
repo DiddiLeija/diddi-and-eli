@@ -197,6 +197,7 @@ class Player1:
                 self.bullets.pop(k)
         except TypeError:
             pass
+        print(self.bullets)
 
     def update(self):
         "Update and react to key controls."
@@ -419,6 +420,10 @@ class Bullet:
             self.x += 3
         else:
             self.x -= 3
+        if self.x < scroll_x or self.x > scroll_x + 127:
+            # If a bullet gets out of the screen, just
+            # de-activate it, there's no need to keep it
+            self.alive = False
 
     def draw(self):
         if not self.alive:
