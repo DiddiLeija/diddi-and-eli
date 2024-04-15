@@ -192,12 +192,9 @@ class Player1:
         for i in range(len(self.bullets)):
             if not self.bullets[i].alive:
                 kills.append(i)
-        try:
-            for k in kills.sort(reverse=True):
-                self.bullets.pop(k)
-        except TypeError:
-            pass
-        print(self.bullets)
+        kills.sort(reverse=True)
+        for k in kills:
+            self.bullets.pop(k)
 
     def update(self):
         "Update and react to key controls."
@@ -206,6 +203,7 @@ class Player1:
             # NOTE: Why not putting 'self.check_bullets' after this block?
             #       Well, what if, during multiplayer mode, one of the character
             #       shoots a bullet and dies before such bullets finish their journey?
+            # TODO: Reconsider the above statement??
             return
         global scroll_x
         self.prev_y = self.y
@@ -625,9 +623,10 @@ class BaseLevel(ABC):
             for b in p.bullets:
                 b.update()
                 for e in self.enemies:
-                    if not e.alive:
+                    if not e.alive or not b.alive:
                         continue
                     if b.x in range(e.x-4, e.x+8) and b.y in range(e.y-4, e.y+8):
+                        # collision between mob and bullet
                         e.alive = False
                         b.alive = False
                         break
