@@ -193,7 +193,23 @@ class Three(BaseLevel):
         "1144 328": Slimehorn1,
         "1360 312": Onion
     }
-    coin_template = []  # TODO: fixme!
+    coin_template = [
+        "168 336",
+        "168 344",
+        "176 336",
+        "176 344",
+        "192 272",
+        "208 272",
+        "224 272",
+        "240 272",
+        "272 296",
+        "288 304",
+        "304 312",
+        "328 304",
+        "336 296",
+        "344 288",
+        "456 288"
+    ]
     bgcolor = 12  # TODO: Get a sunset-like appearance (maybe with color 14?)
     acceptable_clouds = [(32, 0)]
     ending_button = Button(1480, 360)
