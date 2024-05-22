@@ -254,3 +254,15 @@ class Three(BaseLevel):
     ending_button = Button(1480, 360)
     finished_next = "four"
     nextlevel = "four"
+
+
+class Four(BaseLevel):
+    """
+    Level Four: Icy Peaks
+
+    An icy mountain with increasing challenges,
+    including some hard-to-reach jumps and
+    conveniently-placed mobs.
+
+    Mobs (?): ...  # TODO: fixme!
+    """

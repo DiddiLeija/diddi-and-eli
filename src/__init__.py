@@ -10,7 +10,7 @@ stages_list = {
     "one": levels.One,
     "two": levels.Two,
     "three": levels.Three,
-    "four": None,  # TODO - level 4
+    "four": levels.Four,
     "preboss": scenes.PreBoss,
     "five": None,  # TODO - level 5/final
     "final": scenes.Final,
