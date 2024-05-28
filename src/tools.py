@@ -6,7 +6,7 @@ import pyxel
 
 POSSIBLE_LEVELS = (
     # a list of allowed level names.
-    # NOTE: apparently "menu" should not be allowed as a saved level.
+    # NOTE: apparently "menu" or "death" should not be allowed as a saved level.
     "intro",
     "one",
     "two",
@@ -43,3 +43,15 @@ def write_savedata(data):
     with io.open("savedata.json", "w") as js:
         new_data = check_savedata(data)
         js.write(json.dumps(new_data, sort_keys=True))
+
+class InternalOperationCrash(Exception):
+    """
+    custom exception for internal errors with internal stuff
+    that could only crash under testing circumstances.
+    """
+
+def report_crash(opname, original):
+    raise InternalOperationCrash(
+        f"Error: Internal operation '{opname}' showed unexpected behavior. "
+        f"If you are not testing this operation, please report this error. ('{original}')"
+    )

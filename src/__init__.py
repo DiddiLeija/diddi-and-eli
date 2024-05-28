@@ -15,4 +15,5 @@ stages_list = {
     "five": None,  # TODO - level 5/final
     "final": scenes.Final,
     "menu": menu.Menu,
+    "death": scenes.DeathSequence,
 }
