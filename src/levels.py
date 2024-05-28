@@ -266,3 +266,11 @@ class Four(BaseLevel):
 
     Mobs (?): ...  # TODO: fixme!
     """
+    draw_v = 384
+    enemy_template = dict()
+    coin_template = []
+    bgcolor = 12
+    acceptable_clouds = [(0, 32), (16, 32)]
+    ending_button = Button(1512, 472)
+    finished_next = "five"
+    nextlevel = "five"
