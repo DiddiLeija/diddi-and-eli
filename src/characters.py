@@ -244,8 +244,6 @@ class Player1:
         if self.y >= (self.yzero + 120):
             # We fell down!
             self.alive = False
-        if not self.alive:
-            pyxel.playm(6)
 
     def draw(self):
         "Draw the character."
@@ -643,9 +641,6 @@ class BaseLevel(ABC):
             self.lost = True
             self.finished = True
             self.startup()
-            # TODO: replace ASAP current track 6 (death sound)
-            #       to another level track (or a scenes track)
-            # pyxel.playm(6)
             self.nextlevel = "death"
             return
         for e in self.enemies:
