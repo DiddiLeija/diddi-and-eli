@@ -643,8 +643,10 @@ class BaseLevel(ABC):
             self.lost = True
             self.finished = True
             self.startup()
-            pyxel.playm(6)
-            self.nextlevel = "menu"
+            # TODO: replace ASAP current track 6 (death sound)
+            #       to another level track (or a scenes track)
+            # pyxel.playm(6)
+            self.nextlevel = "death"
             return
         for e in self.enemies:
             e.update()

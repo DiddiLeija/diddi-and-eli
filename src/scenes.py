@@ -83,12 +83,13 @@ class DeathSequence(BaseLevel):
 
     def __init__(self, player_choice):
         self.player_selection = player_choice
+        pyxel.stop()
     
     def update(self):
         self.check_quit()
         if self.check_reset():
             self.nextlevel = "menu"
-        elif pyxel.btnp(pyxel.KEY_ENTER):
+        elif pyxel.btnp(pyxel.KEY_SPACE):
             self.finished = True
             self.nextlevel = get_savedata()["level"]
     
@@ -98,7 +99,10 @@ class DeathSequence(BaseLevel):
             "Oh no! :(\n"
             f"You ({self.get_player_names()}) died.\n"
             "Press R to return to the menu, or\n"
-            "ENTER to retry the level you lost."
+            "SPACE to retry the level\n"
+            "you lost. ;)",
+            5,
+            5
         )
     
     def get_player_names(self):
