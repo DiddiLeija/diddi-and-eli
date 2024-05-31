@@ -83,6 +83,7 @@ class DeathSequence(BaseLevel):
 
     def __init__(self, player_choice):
         self.player_selection = player_choice
+        pyxel.camera(0, 0)  # NOTE: draw_v is not needed here
         pyxel.stop()
     
     def update(self):
