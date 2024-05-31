@@ -79,13 +79,13 @@ class DeathSequence(BaseLevel):
     A former scene (though not inherited from BaseScene, nor
     behaving much like BaseLevel) to use when losing the game.
     """
-    player_selection = None
+    player_choice = None
 
     def __init__(self, player_choice):
-        self.player_selection = player_choice
+        self.player_choice = player_choice
         pyxel.camera(0, 0)  # NOTE: draw_v is not needed here
         pyxel.stop()
-    
+
     def update(self):
         self.check_quit()
         if self.check_reset():
@@ -93,7 +93,7 @@ class DeathSequence(BaseLevel):
         elif pyxel.btnp(pyxel.KEY_SPACE):
             self.finished = True
             self.nextlevel = get_savedata()["level"]
-    
+
     def draw(self):
         pyxel.cls(0)
         pyxel.bltm(0, 0, 2, 0, 384, 128, 128, 0)
@@ -106,15 +106,15 @@ class DeathSequence(BaseLevel):
             5,
             5
         )
-    
+
     def get_player_names(self):
         "Get a proper text to refer to the player pack."
         ideas = ["Diddi", "Eli", "Diddi & Eli"]
         try:
-            return ideas[self.player_selection]
+            return ideas[self.player_choice]
         except (TypeError, IndexError, ValueError) as exc:
             report_crash(
-                f"DeathSequence.get_player_names (player_selection = {self.player_selection})",
+                f"DeathSequence.get_player_names (player_choice = {self.player_choice})",
                 str(exc)
             )
 
