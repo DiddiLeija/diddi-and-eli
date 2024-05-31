@@ -96,11 +96,12 @@ class DeathSequence(BaseLevel):
     
     def draw(self):
         pyxel.cls(0)
+        pyxel.bltm(0, 0, 2, 0, 384, 128, 128, 0)
         draw_text(
             "Oh no! :(\n"
             f"You ({self.get_player_names()}) died.\n"
-            "Press R to return to the menu, or\n"
-            "SPACE to retry the level\n"
+            "Press R to return to the menu,\n"
+            "or SPACE to retry the level\n"
             "you lost. ;)",
             5,
             5
