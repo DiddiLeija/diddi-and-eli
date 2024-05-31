@@ -49,10 +49,10 @@ TILES_FLOOR = [
     (6, 3),  # Box - 2
     (7, 2),  # Dirt - Up
     (7, 3),  # Dirt - Down
-    (0, 8),  # Gate (L, 1)
-    (0, 9),  # Gate (L, 2)
-    (1, 8),  # Gate (R, 1)
-    (1, 9),  # Gate (R, 2)
+    (5, 8),  # Gate (L, 1)
+    (5, 9),  # Gate (L, 2)
+    (6, 8),  # Gate (R, 1)
+    (6, 9),  # Gate (R, 2)
     (7, 8),  # Button support (h)
     (7, 9),  # Button support (v)
 ]
