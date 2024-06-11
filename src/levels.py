@@ -278,7 +278,6 @@ class Four(BaseLevel):
         "280 440": Slimehorn2,
         "376 456": Robot,
         "376 432": Onion,
-        "376 400": Onion,  # TODO: Determine if this mob is properly placed
         "496 424": Slimehorn2,
         "560 424": Robot,
         "592 424": Robot,
