@@ -254,6 +254,7 @@ class Three(BaseLevel):
     ending_button = Button(1480, 360)
     finished_next = "four"
     nextlevel = "four"
+    slimehorn_variant = True
 
 
 class Four(BaseLevel):
