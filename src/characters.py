@@ -366,6 +366,7 @@ class SlimehornBase(BaseMob):
         # "yzero" here, but in case we consider adding a
         # Slimehorn movement feature in the future, I added it here.
         self.yzero = yzero
+        self.alive = True
 
     def update(self):
         # TODO: By now, Slimehorns won't move.
@@ -377,7 +378,7 @@ class SlimehornBase(BaseMob):
         if not self.alive:
             return
         combo = self.imgs[0] if self.variant else self.imgs[1]
-        pyxel.blt(self.x, self.y, 0, combo[0], combo[2], 8, 8, 0)
+        pyxel.blt(self.x, self.y, 0, combo[0], combo[1], 8, 8, 0)
 
 class Slimehorn1(SlimehornBase):
     "Mobs that stick to a surface (Down)."
