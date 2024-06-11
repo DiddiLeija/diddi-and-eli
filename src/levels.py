@@ -291,7 +291,7 @@ class Four(BaseLevel):
         "1344 424": Slimehorn1
     }
     coin_template = []
-    bgcolor = 12
+    bgcolor = 5  # experimental, may change later?
     acceptable_clouds = [(0, 32), (16, 32)]
     ending_button = Button(1512, 472)
     finished_next = "five"
