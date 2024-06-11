@@ -518,6 +518,7 @@ class BaseLevel(ABC):
     button_location = ""  # a string representing the coordinates of the "ending button" location
     ending_button = None  # the ending button object
     finished_next = ""  # next sequence in case a level ends succesfully
+    slimehorn_variant = False  # 
 
     def __init__(self, player_choice):
         pyxel.camera(0, self.draw_v)
@@ -578,7 +579,19 @@ class BaseLevel(ABC):
                     continue
                 if key in self.enemy_template.keys():
                     mobclass = self.enemy_template[key]
-                    self.enemies.append(mobclass(x * 8, y * 8, self.draw_v))
+                    if "Slimehorn" in str(mobclass):
+                        # If we are creating a Slimehorn, let's just
+                        # define the variant we're using :) 
+                        self.enemies.append(
+                            mobclass(
+                                x * 8,
+                                y * 8,
+                                self.draw_v,
+                                self.slimehorn_variant  # MAGIC :D
+                            )
+                        )
+                    else:
+                        self.enemies.append(mobclass(x * 8, y * 8, self.draw_v))
                     self.already_spawned.append(key)
                 if key in self.coin_template:
                     self.coins.append(Coin(x * 8, y * 8))
