@@ -265,10 +265,32 @@ class Four(BaseLevel):
     including some hard-to-reach jumps and
     conveniently-placed mobs.
 
-    Mobs (?): ...  # TODO: fixme!
+    Mobs (22): Onions (4), Robots (9), Icy Slimehorns (9).
     """
     draw_v = 384
-    enemy_template = dict()
+    enemy_template = {
+        "72 424": Robot,
+        "152 416": Robot,
+        "208 456": Slimehorn1,
+        "208 480": Slimehorn2,
+        "264 456": Onion,
+        "280 432": Onion,
+        "280 440": Slimehorn2,
+        "376 456": Robot,
+        "376 432": Onion,
+        "376 400": Onion,  # TODO: Determine if this mob is properly placed
+        "496 424": Slimehorn2,
+        "560 424": Robot,
+        "592 424": Robot,
+        "672 432": Slimehorn1,
+        "672 448": Slimehorn2,
+        "696 448": Robot,
+        "840 440": Robot,
+        "856 416": Robot,
+        "896 440": Slimehorn2,
+        "1104 432": Robot,
+        "1344 424": Slimehorn1
+    }
     coin_template = []
     bgcolor = 12
     acceptable_clouds = [(0, 32), (16, 32)]
