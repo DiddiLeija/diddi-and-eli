@@ -249,7 +249,7 @@ class Three(BaseLevel):
         "1288 296",
         "1296 304"
     ]
-    bgcolor = 12  # TODO: Get a sunset-like appearance (maybe with color 14?)
+    bgcolor = 14
     acceptable_clouds = [(32, 0)]
     ending_button = Button(1480, 360)
     finished_next = "four"
