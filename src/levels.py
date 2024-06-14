@@ -158,7 +158,7 @@ class Two(BaseLevel):
         "1000 152",
         "1008 160"
     ]
-    bgcolor = 12  # TODO: we want color 1, but that may conflict with Diddi and Eli's colors
+    bgcolor = 5
     acceptable_clouds = [(16, 16)]  # Only one kind of clouds
     ending_button = Button(1192, 192)
     finished_next = "three"
@@ -291,7 +291,7 @@ class Four(BaseLevel):
         "1344 424": Slimehorn1
     }
     coin_template = []
-    bgcolor = 5  # experimental, may change later?
+    bgcolor = 5
     acceptable_clouds = [(0, 32), (16, 32)]
     ending_button = Button(1512, 472)
     finished_next = "five"
