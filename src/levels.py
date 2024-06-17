@@ -94,6 +94,9 @@ class One(BaseLevel):
     # NOTE: The same workaround is present in all the levels stored here...
     # TODO: Safely remove this workaround at some point?
     nextlevel = "two"
+    use_gradient = True
+    gradient_height = 16
+    gradient_color = 6
 
 
 class Two(BaseLevel):
@@ -163,6 +166,9 @@ class Two(BaseLevel):
     ending_button = Button(1192, 192)
     finished_next = "three"
     nextlevel = "three"
+    use_gradient = True
+    gradient_color = 1
+    gradient_height = 129
 
 
 class Three(BaseLevel):
@@ -255,6 +261,9 @@ class Three(BaseLevel):
     finished_next = "four"
     nextlevel = "four"
     slimehorn_variant = True
+    use_gradient = True
+    gradient_color = 9
+    gradient_height = 60
 
 
 class Four(BaseLevel):
@@ -296,3 +305,6 @@ class Four(BaseLevel):
     ending_button = Button(1512, 472)
     finished_next = "five"
     nextlevel = "five"
+    use_gradient = True
+    gradient_color = 6
+    gradient_height = 129

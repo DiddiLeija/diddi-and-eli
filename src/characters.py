@@ -18,6 +18,8 @@ from abc import ABC
 
 import pyxel
 
+from .tools import gradient, draw_gradient
+
 # === Tool functions (physics, data, etc) ===
 
 __all__ = (
@@ -519,7 +521,11 @@ class BaseLevel(ABC):
     button_location = ""  # a string representing the coordinates of the "ending button" location
     ending_button = None  # the ending button object
     finished_next = ""  # next sequence in case a level ends succesfully
-    slimehorn_variant = False  # 
+    slimehorn_variant = False  # Are we using slimehorn variants?
+    use_gradient = False  # Determine if a gradient color will be used on background
+    gradient_color = 0  # Gradient color (if enabled))
+    gradient_skips = list()  # advanced option to pass a 'skips' arg to 'tools.gradient()'
+    gradient_height = 10  # advanced option to pass a 'height' arg to 'tools.gradient()'
 
     def __init__(self, player_choice):
         pyxel.camera(0, self.draw_v)
@@ -666,6 +672,13 @@ class BaseLevel(ABC):
     def draw_template(self):
         "Some drawing actions that should happen in (almost) every instance."
         pyxel.cls(self.bgcolor)
+        if self.use_gradient:
+            draw_gradient(
+                gradient(self.gradient_height, self.gradient_skips),
+                scroll_x,
+                self.draw_v,
+                self.gradient_color
+            )
         if self.check_anyone_alive():
             pyxel.camera()
             for i in self.clouds:
