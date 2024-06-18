@@ -97,6 +97,18 @@ class One(BaseLevel):
     use_gradient = True
     gradient_height = 16
     gradient_color = 6
+    gradient_skips = [
+        15,
+        14,
+        12,
+        11,
+        9,
+        8,
+        6,
+        5,
+        3,
+        2
+    ]
 
 
 class Two(BaseLevel):
@@ -264,6 +276,22 @@ class Three(BaseLevel):
     use_gradient = True
     gradient_color = 9
     gradient_height = 60
+    gradient_skips = [
+        58,
+        57,
+        56,
+        54,
+        53,
+        52,
+        50,
+        49,
+        47,
+        46,
+        44,
+        43,
+        41,
+        40
+    ]
 
 
 class Four(BaseLevel):
