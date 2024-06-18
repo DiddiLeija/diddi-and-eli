@@ -607,18 +607,17 @@ class BaseLevel(ABC):
                     self.ending_button = Button(x * 8, y * 8)
 
     def generate_clouds(self, right_x):
-        # TODO: Group all the "if ...: return" blocks found here?
-        if not self.gen_clouds:
+        if not self.gen_clouds or random.randint(0, self.cloud_freq) != 1:
             return
-        if (right_x in range(self.already_spawned_cloud+1, self.already_spawned_cloud+16)):
-            return
-        if random.randint(0, self.cloud_freq) != 1:
-            return
+        # if (right_x in range(self.already_spawned_cloud+1, self.already_spawned_cloud+16)):
+        #     print("condition b")
+        #     return
         draw_comb = random.choice(self.acceptable_clouds)
+        selected_y = random.randint(self.draw_v, self.draw_v + 90)
         self.clouds.append(
             Cloud(
                 right_x,
-                random.randint(self.draw_v, self.draw_v + 80),
+                selected_y,
                 draw_comb[0],
                 draw_comb[1]
             )
