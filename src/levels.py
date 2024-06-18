@@ -274,7 +274,7 @@ class Four(BaseLevel):
     including some hard-to-reach jumps and
     conveniently-placed mobs.
 
-    Mobs (22): Onions (4), Robots (9), Icy Slimehorns (9).
+    Mobs (21): Onions (3), Robots (9), Icy Slimehorns (9).
     """
     draw_v = 384
     enemy_template = {
@@ -286,7 +286,6 @@ class Four(BaseLevel):
         "280 432": Onion,
         "280 440": Slimehorn2,
         "376 456": Robot,
-        "376 432": Onion,
         "496 424": Slimehorn2,
         "560 424": Robot,
         "592 424": Robot,
@@ -299,12 +298,68 @@ class Four(BaseLevel):
         "1104 432": Robot,
         "1344 424": Slimehorn1
     }
-    coin_template = []
+    coin_template = [
+        "40 408",
+        "48 400",
+        "56 408",
+        "88 408",
+        "96 400",
+        "104 400",
+        "128 400",
+        "136 392",
+        "144 400",
+        "192 456",
+        "200 456",
+        "208 456",
+        "272 424",
+        "280 416",
+        "280 424",
+        "280 432",
+        "288 424",
+        "440 416",
+        "440 424",
+        "448 416",
+        "448 424",
+        "560 400",
+        "560 416",
+        "568 408",
+        "576 400",
+        "576 416",
+        "584 408",
+        "584 400",
+        "584 416",
+        "648 448",
+        "664 448",
+        "672 448",
+        "688 448",
+        "832 432",
+        "832 440",
+        "840 432",
+        "840 440",
+        "1040 416",
+        "1048 424",
+        "1056 432",
+        "1064 440",
+        "1072 448",
+        "1080 456",
+        "1096 408",
+        "1096 416",
+        "1104 408",
+        "1104 416",
+        "1120 456",
+        "1128 448",
+        "1136 440",
+        "1144 432",
+        "1152 424",
+        "1336 432",
+        "1344 432",
+        "1352 432"
+    ]
     bgcolor = 5
     acceptable_clouds = [(0, 32), (16, 32)]
     ending_button = Button(1512, 472)
     finished_next = "five"
     nextlevel = "five"
     use_gradient = True
-    gradient_color = 6
+    gradient_color = 12
     gradient_height = 129
