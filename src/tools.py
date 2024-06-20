@@ -80,3 +80,33 @@ def draw_gradient(grad, ini_x, ini_y, col):
                 pyxel.pset((ini_x-1) + vv, ini_y + k, col)
             except Exception:
                 pass  # this shouldn't happen anyway
+
+def get_player_names(choice):
+        "Get a proper text to refer to the player pack."
+        ideas = ["Diddi", "Eli", "Diddi & Eli"]
+        try:
+            return ideas[choice]
+        except (TypeError, IndexError, ValueError) as exc:
+            report_crash(
+                f"tools.get_player_names (player_choice = {choice})",
+                str(exc)
+            )
+
+def draw_stats(x, y, player_selection, coins, level):
+    "Draw a stats bar in the bottom of the screen."
+    play_stats = False
+    correct_s = ""
+    for s in POSSIBLE_LEVELS:
+        if s in level.lower():
+            play_stats = True
+            correct_s = s
+            break
+    pyxel.camera()
+    pyxel.rect(0, 128, 128, 16, 0)
+    pyxel.rect(0, 128, 128, 1, 7)
+    if play_stats:
+        draw_text(get_player_names(player_selection), 1, 129)
+        draw_text(f"COINS {coins}  LEVEL {correct_s}", 1, 137)
+    else:
+        draw_text("...", 60, 130)
+    pyxel.camera(x, y)

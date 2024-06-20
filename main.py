@@ -5,7 +5,7 @@ Diddi and Eli: A platformer game with scaling challenges.
 import pyxel
 
 from src import stages_list
-from src.tools import init_class, write_savedata
+from src.tools import init_class, write_savedata, draw_stats
 
 
 class Main:
@@ -33,8 +33,16 @@ class Main:
     
     def draw(self):
         self.situation.draw()
+        draw_stats(
+            self.situation.get_scroll_x(),
+            self.situation.draw_v,
+            self.situation.player_choice,
+            self.situation.get_coin_count(),
+            str(type(self.situation))
+        )
 
 
 if __name__ == "__main__":
-    pyxel.init(128, 128, "Diddi and Eli", capture_sec=120)
+    pyxel.init(128, 144, "Diddi and Eli", capture_sec=120)
+    pyxel.fullscreen(True)  # why not? :P
     Main()

@@ -24,7 +24,7 @@ is just a string with all the text to be displayed.
 import pyxel
 
 from .characters import BaseLevel
-from .tools import draw_text, get_savedata, report_crash
+from .tools import draw_text, get_savedata, get_player_names
 
 
 class BaseScene(BaseLevel):
@@ -99,24 +99,13 @@ class DeathSequence(BaseLevel):
         pyxel.bltm(0, 0, 2, 0, 384, 128, 128, 0)
         draw_text(
             "Oh no! :(\n"
-            f"You ({self.get_player_names()}) died.\n"
+            f"You ({get_player_names(self.player_choice)}) died.\n"
             "Press R to return to the menu,\n"
             "or SPACE to retry the level\n"
             "you lost. ;)",
             5,
             5
-        )
-
-    def get_player_names(self):
-        "Get a proper text to refer to the player pack."
-        ideas = ["Diddi", "Eli", "Diddi & Eli"]
-        try:
-            return ideas[self.player_choice]
-        except (TypeError, IndexError, ValueError) as exc:
-            report_crash(
-                f"DeathSequence.get_player_names (player_choice = {self.player_choice})",
-                str(exc)
-            )
+        )  
 
 
 class Intro(BaseScene):

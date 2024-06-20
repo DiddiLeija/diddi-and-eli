@@ -623,6 +623,15 @@ class BaseLevel(ABC):
             )
         )
         self.already_spawned_cloud = right_x
+    
+    def get_coin_count(self):
+        "just return the coin count for further usage."
+        return TOTAL_COINS
+    
+    def get_scroll_x(self):
+        "return scroll_x for external purposes."
+        # TODO: get rid of this workaround
+        return scroll_x
 
     def update_template(self):
         "Some update actions that should happen in (almost) every instance."
