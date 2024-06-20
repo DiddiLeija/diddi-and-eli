@@ -354,8 +354,8 @@ class Four(BaseLevel):
         "576 400",
         "576 416",
         "584 408",
-        "584 400",
-        "584 416",
+        "592 400",
+        "592 416",
         "648 448",
         "664 448",
         "672 448",
@@ -386,8 +386,8 @@ class Four(BaseLevel):
     bgcolor = 5
     acceptable_clouds = [(0, 32), (16, 32)]
     ending_button = Button(1512, 472)
-    finished_next = "five"
-    nextlevel = "five"
+    finished_next = "preboss"
+    nextlevel = "preboss"
     use_gradient = True
     gradient_color = 12
     gradient_height = 129
