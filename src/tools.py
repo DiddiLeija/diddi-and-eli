@@ -23,10 +23,10 @@ def check_savedata(data):
         data["level"] = "intro"
     return data
 
-def draw_text(text, x, y):
+def draw_text(text, x, y, *, maincol=7, subcol=1):
     "Draw a pretty text on the screen."
-    pyxel.text(x, y, text, 1)
-    pyxel.text(x+1, y, text, 7)
+    pyxel.text(x, y, text, subcol)
+    pyxel.text(x+1, y, text, maincol)
 
 def init_class(obj, popt):
     "Initialize a class and return the object."
@@ -108,5 +108,5 @@ def draw_stats(x, y, player_selection, coins, level):
         draw_text(get_player_names(player_selection), 1, 129)
         draw_text(f"COINS {coins}  LEVEL {correct_s}", 1, 137)
     else:
-        draw_text("...", 60, 130)
+        draw_text("... nothing to show by now...", 0, 137, maincol=13, subcol=1)
     pyxel.camera(x, y)
