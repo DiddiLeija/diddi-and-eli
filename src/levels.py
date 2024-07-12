@@ -1,14 +1,6 @@
 "Library containing all the level classes, which honestly are pretty simple."
 
-
-from .characters import (
-    BaseLevel,
-    Onion,
-    Robot,
-    Button,
-    Slimehorn1,
-    Slimehorn2
-)
+from .characters import BaseLevel, Onion, Robot, Button, Slimehorn1, Slimehorn2
 
 
 class TestLevel(BaseLevel):
@@ -35,6 +27,7 @@ class One(BaseLevel):
 
     Mobs (9): Onions (7), Robots (2)
     """
+
     enemy_template = {
         "120 88": Onion,
         "264 80": Onion,
@@ -45,7 +38,7 @@ class One(BaseLevel):
         "632 0": Onion,
         "696 56": Onion,
         "760 32": Robot,
-        "912 48": Robot
+        "912 48": Robot,
     }
     coin_template = [
         "32 80",
@@ -80,13 +73,13 @@ class One(BaseLevel):
         "832 32",
         "840 40",
         "848 48",
-        "856 56"
+        "856 56",
     ]
     bgcolor = 12
     acceptable_clouds = [
         (0, 0),
         (0, 0),  # Augment the chances of getting a big cloud ;)
-        (16, 0)
+        (16, 0),
     ]
     ending_button = Button(1064, 96)
     finished_next = "two"
@@ -97,18 +90,7 @@ class One(BaseLevel):
     use_gradient = True
     gradient_height = 16
     gradient_color = 6
-    gradient_skips = [
-        15,
-        14,
-        12,
-        11,
-        9,
-        8,
-        6,
-        5,
-        3,
-        2
-    ]
+    gradient_skips = [15, 14, 12, 11, 9, 8, 6, 5, 3, 2]
 
 
 class Two(BaseLevel):
@@ -120,6 +102,7 @@ class Two(BaseLevel):
 
     Mobs (12): Onions (6), Robots (6).
     """
+
     draw_v = 128
     enemy_template = {
         "160 184": Onion,
@@ -134,7 +117,7 @@ class Two(BaseLevel):
         "952 176": Robot,
         "1072 216": Onion,
         "1088 216": Onion,
-        "1104 216": Onion
+        "1104 216": Onion,
     }
     coin_template = [
         "48 200",
@@ -171,7 +154,7 @@ class Two(BaseLevel):
         "984 168",
         "992 160",
         "1000 152",
-        "1008 160"
+        "1008 160",
     ]
     bgcolor = 5
     acceptable_clouds = [(16, 16)]  # Only one kind of clouds
@@ -192,6 +175,7 @@ class Three(BaseLevel):
 
     Mobs (16): Onions (6), Robots (3), Desert Slimehorns (7).
     """
+
     draw_v = 256
     enemy_template = {
         "104 320": Onion,
@@ -209,7 +193,7 @@ class Three(BaseLevel):
         "968 328": Onion,
         "1120 312": Slimehorn1,
         "1144 328": Slimehorn1,
-        "1360 312": Onion
+        "1360 312": Onion,
     }
     coin_template = [
         "168 336",
@@ -265,7 +249,7 @@ class Three(BaseLevel):
         "1272 304",
         "1280 296",
         "1288 296",
-        "1296 304"
+        "1296 304",
     ]
     bgcolor = 14
     acceptable_clouds = [(32, 0)]
@@ -276,22 +260,7 @@ class Three(BaseLevel):
     use_gradient = True
     gradient_color = 9
     gradient_height = 60
-    gradient_skips = [
-        58,
-        57,
-        56,
-        54,
-        53,
-        52,
-        50,
-        49,
-        47,
-        46,
-        44,
-        43,
-        41,
-        40
-    ]
+    gradient_skips = [58, 57, 56, 54, 53, 52, 50, 49, 47, 46, 44, 43, 41, 40]
 
 
 class Four(BaseLevel):
@@ -304,6 +273,7 @@ class Four(BaseLevel):
 
     Mobs (21): Onions (3), Robots (9), Icy Slimehorns (9).
     """
+
     draw_v = 384
     enemy_template = {
         "72 424": Robot,
@@ -324,7 +294,7 @@ class Four(BaseLevel):
         "856 416": Robot,
         "896 440": Slimehorn2,
         "1104 432": Robot,
-        "1344 424": Slimehorn1
+        "1344 424": Slimehorn1,
     }
     coin_template = [
         "40 408",
@@ -381,7 +351,7 @@ class Four(BaseLevel):
         "1152 424",
         "1336 432",
         "1344 432",
-        "1352 432"
+        "1352 432",
     ]
     bgcolor = 5
     acceptable_clouds = [(0, 32), (16, 32)]

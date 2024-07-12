@@ -2,7 +2,7 @@
 
 from . import menu, levels, scenes
 
-__all__ = ("stages_list")
+__all__ = "stages_list"
 
 # Below there's a dictionary with all the objects for further use
 stages_list = {

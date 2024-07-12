@@ -7,7 +7,7 @@ slimehorns, robots, etc), coins, and NPCs.
 # Some of the functions/protocols were borrowed from
 # another project of mine, "Abandon the ship!", which
 # is based in Pyxel example #10, "Platformer".
-# 
+#
 # To be honest, "Diddi and Eli" can be considered a spiritual
 # successor to "Abandon the ship!"...
 
@@ -33,7 +33,7 @@ __all__ = (
     "Slimehorn4",
     "Bullet",
     "Coin",
-    "BaseLevel"
+    "BaseLevel",
 )
 
 SCROLL_BORDER_X = 80
@@ -61,12 +61,15 @@ TILES_FLOOR = [
 scroll_x = 0
 TOTAL_COINS = 0
 
+
 def adjust_x(real_x):
     return scroll_x + real_x
+
 
 def get_tile(tile_x, tile_y):
     # print(tile_x, tile_y)
     return pyxel.tilemaps[1].pget(tile_x, tile_y)
+
 
 def detect_collision(x, y, dy):
     x1 = x // 8
@@ -83,9 +86,11 @@ def detect_collision(x, y, dy):
                 return True
     return False
 
+
 def is_wall(x, y):
     tile = get_tile(x // 8, y // 8)
     return tile in TILES_FLOOR or tile[0] >= WALL_TILE_X
+
 
 def push_back(x, y, dx, dy):
     # TODO: We have to fix this function to make it work on
@@ -117,6 +122,7 @@ def push_back(x, y, dx, dy):
             x += sign
     return x, y, dx, dy
 
+
 # === Players ===
 
 
@@ -124,6 +130,7 @@ class Player1:
     """
     Diddi, Player 1, operated using WASD keys.
     """
+
     alive = True
     already_jumping = False
 
@@ -155,11 +162,11 @@ class Player1:
         self.key_bullet = pyxel.KEY_S
         self.key_right = pyxel.KEY_D
         self.imagebank = [
-            (8, 0),   # Right, normal
+            (8, 0),  # Right, normal
             (16, 0),  # Right, walking (1)
             (24, 0),  # Right, walikng (2)
             (32, 0),  # Right, jumping
-            (8, 8),   # Left, normal
+            (8, 8),  # Left, normal
             (16, 8),  # Left, walking (1)
             (24, 8),  # Left, walikng (2)
             (32, 8),  # Left, jumping
@@ -212,10 +219,10 @@ class Player1:
         if pyxel.btnp(self.key_bullet):
             if self.r_facing:
                 # Send a bullet to the right
-                self.bullets.append(Bullet(self.x+6, self.y+3))
+                self.bullets.append(Bullet(self.x + 6, self.y + 3))
             else:
                 # Send a bullet to the left
-                self.bullets.append(Bullet(self.x, self.y+3, False))
+                self.bullets.append(Bullet(self.x, self.y + 3, False))
         if pyxel.btn(self.key_left):
             # Move to the left
             self.dx = -2
@@ -257,7 +264,7 @@ class Player1:
 class Player2(Player1):
     """
     Eli, Player 2, operated with arrow keys.
-    
+
     NOTE: this class is inherited from Diddi
     (Player1) as it uses most of its structure.
     However, some variables have changed (see
@@ -274,14 +281,14 @@ class Player2(Player1):
         self.key_bullet = pyxel.KEY_DOWN
         self.key_right = pyxel.KEY_RIGHT
         self.imagebank = [
-            (8, 16),    # Right, normal
-            (16, 16),   # Right, walking (1)
-            (24, 16),   # Right, walikng (2)
-            (32, 16),   # Right, jumping
-            (8, 24),    # Left, normal
-            (16, 24),   # Left, walking (1)
-            (24, 24),   # Left, walikng (2)
-            (32, 24),   # Left, jumping
+            (8, 16),  # Right, normal
+            (16, 16),  # Right, walking (1)
+            (24, 16),  # Right, walikng (2)
+            (32, 16),  # Right, jumping
+            (8, 24),  # Left, normal
+            (16, 24),  # Left, walking (1)
+            (24, 24),  # Left, walikng (2)
+            (32, 24),  # Left, jumping
         ]
         self.icon = (0, 24)
 
@@ -291,6 +298,7 @@ class Player2(Player1):
 
 class BaseMob:
     "Simple base for all the mobs."
+
     alive = False
 
     def __init__(self, x, y, yzero=0):
@@ -307,12 +315,14 @@ class BaseMob:
     def draw(self):
         if self.alive:
             self.draw_template()
-    
+
     def draw_template(self):
         pass
 
+
 class Onion(BaseMob):
     "Mobs that just walk but can fall from cliffs."
+
     direction = -1
 
     def update(self):
@@ -331,20 +341,18 @@ class Onion(BaseMob):
         v = random.choice([48, 56])
         pyxel.blt(self.x, self.y, 0, u, v, 8, 8, 0)
 
+
 class Robot(BaseMob):
     "Mobs that walk, without falling from cliffs, making then harder to defeat."
+
     direction = -1
 
     def update(self):
         self.dx = self.direction
         if is_wall(self.x, self.y + 8) or is_wall(self.x + 7, self.y + 8):
-            if self.direction < 0 and (
-                is_wall(self.x - 1, self.y + 4) or not is_wall(self.x - 1, self.y + 8)
-            ):
+            if self.direction < 0 and (is_wall(self.x - 1, self.y + 4) or not is_wall(self.x - 1, self.y + 8)):
                 self.direction = 1
-            elif self.direction > 0 and (
-                is_wall(self.x + 8, self.y + 4) or not is_wall(self.x + 7, self.y + 8)
-            ):
+            elif self.direction > 0 and (is_wall(self.x + 8, self.y + 4) or not is_wall(self.x + 7, self.y + 8)):
                 self.direction = -1
         self.dy = min(self.dy + 1, 3)
         self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
@@ -356,8 +364,10 @@ class Robot(BaseMob):
         v = random.choice([48, 56])
         pyxel.blt(self.x, self.y, 0, u, v, 8, 8, 0)
 
+
 class SlimehornBase(BaseMob):
     "Base class for slimehorns (see below)."
+
     imgs = [tuple(), tuple()]
 
     def __init__(self, x, y, yzero=None, variant=False):
@@ -382,20 +392,28 @@ class SlimehornBase(BaseMob):
         combo = self.imgs[0] if self.variant else self.imgs[1]
         pyxel.blt(self.x, self.y, 0, combo[0], combo[1], 8, 8, 0)
 
+
 class Slimehorn1(SlimehornBase):
     "Mobs that stick to a surface (Down)."
+
     imgs = [(32, 48), (48, 48)]
+
 
 class Slimehorn2(SlimehornBase):
     "Mobs that stick to a surface (Up)."
+
     imgs = [(32, 56), (48, 56)]
+
 
 class Slimehorn3(SlimehornBase):
     "Mobs that stick to a surface (Left)."
+
     imgs = [(40, 48), (56, 48)]
+
 
 class Slimehorn4(SlimehornBase):
     "Mobs that stick to a surface (Right)."
+
     imgs = [(40, 56), (56, 56)]
 
 
@@ -404,6 +422,7 @@ class Slimehorn4(SlimehornBase):
 
 class Bullet:
     "A bullet sent by either Diddi or Eli, which may damage enemies."
+
     alive = False
 
     def __init__(self, x, y, r_facing=True):
@@ -432,6 +451,7 @@ class Bullet:
 
 class Coin:
     "A coin that gives you points to brag about."
+
     alive = False
 
     def __init__(self, x, y):
@@ -448,10 +468,13 @@ class Coin:
             return
         pyxel.blt(self.x, self.y, 0, 0, 8, 8, 8, 0)
 
+
 # === Clouds ===
+
 
 class Cloud:
     "A sprite that's drawn in the background, usually representing clouds or smoke."
+
     alive = False
 
     def __init__(self, x, y, draw_x, draw_y):
@@ -461,19 +484,21 @@ class Cloud:
         self.draw_y = draw_y
         self.alive = True
         self.speed = random.randint(2, 3)
-    
+
     def update(self):
         self.x -= self.speed
         if self.x <= 0:
             self.alive = False
-    
+
     def draw(self):
         if not self.alive:
             return
         # NOTE: Clouds are all stored at resource image 1, take that in count!
         pyxel.blt(self.x, self.y, 1, self.draw_x, self.draw_y, 16, 16, 0)
 
+
 # === Button ===
+
 
 class Button:
     """
@@ -486,7 +511,7 @@ class Button:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-    
+
     def update(self):
         pass
 
@@ -496,8 +521,10 @@ class Button:
 
 # === Base level (removed from troubled 'src.baseclasses') ===
 
+
 class BaseLevel(ABC):
     "Base level."
+
     # tilemap = 0
     player_choice = 0  # 0 is Diddi, 1 is Eli, and 2 is multiplayer
     player = list()  # Amount of players involved
@@ -572,7 +599,7 @@ class BaseLevel(ABC):
         elif self.player_choice == 2:
             self.player = [
                 Player1(0, self.draw_v, self.draw_v),
-                Player2(0, self.draw_v + 10, self.draw_v)
+                Player2(0, self.draw_v + 10, self.draw_v),
             ]
 
     def spawn(self, left_x, right_x):
@@ -588,13 +615,13 @@ class BaseLevel(ABC):
                     mobclass = self.enemy_template[key]
                     if "Slimehorn" in str(mobclass):
                         # If we are creating a Slimehorn, let's just
-                        # define the variant we're using :) 
+                        # define the variant we're using :)
                         self.enemies.append(
                             mobclass(
                                 x * 8,
                                 y * 8,
                                 self.draw_v,
-                                self.slimehorn_variant  # MAGIC :D
+                                self.slimehorn_variant,  # MAGIC :D
                             )
                         )
                     else:
@@ -614,20 +641,13 @@ class BaseLevel(ABC):
         #     return
         draw_comb = random.choice(self.acceptable_clouds)
         selected_y = random.randint(self.draw_v, self.draw_v + 90)
-        self.clouds.append(
-            Cloud(
-                right_x,
-                selected_y,
-                draw_comb[0],
-                draw_comb[1]
-            )
-        )
+        self.clouds.append(Cloud(right_x, selected_y, draw_comb[0], draw_comb[1]))
         self.already_spawned_cloud = right_x
-    
+
     def get_coin_count(self):
         "just return the coin count for further usage."
         return TOTAL_COINS
-    
+
     def get_scroll_x(self):
         "return scroll_x for external purposes."
         # TODO: get rid of this workaround
@@ -643,26 +663,26 @@ class BaseLevel(ABC):
             p.update()
             for c in self.coins:
                 c.update()
-                if c.x in range(p.x-4, p.x+8) and c.y in range(p.y-4, p.y+8) and c.alive:
-                        TOTAL_COINS += 1
-                        c.alive = False
+                if c.x in range(p.x - 4, p.x + 8) and c.y in range(p.y - 4, p.y + 8) and c.alive:
+                    TOTAL_COINS += 1
+                    c.alive = False
             for b in p.bullets:
                 b.update()
                 for e in self.enemies:
                     if not e.alive or not b.alive:
                         continue
-                    if b.x in range(e.x-4, e.x+8) and b.y in range(e.y-4, e.y+8):
+                    if b.x in range(e.x - 4, e.x + 8) and b.y in range(e.y - 4, e.y + 8):
                         # collision between mob and bullet
                         e.alive = False
                         b.alive = False
                         break
             for e in self.enemies:
                 if e.alive:
-                    if e.x in range(p.x-4, p.x+8) and e.y in range(p.y-4, p.y+8):
+                    if e.x in range(p.x - 4, p.x + 8) and e.y in range(p.y - 4, p.y + 8):
                         p.alive = False
             if p.alive and self.ending_button is not None:
-                if self.ending_button.x in range(p.x-4, p.x+8):
-                    if self.ending_button.y in range(p.y-4, p.y+8):
+                if self.ending_button.x in range(p.x - 4, p.x + 8):
+                    if self.ending_button.y in range(p.y - 4, p.y + 8):
                         self.finished = True
                         break
         if not self.check_anyone_alive():
@@ -685,7 +705,7 @@ class BaseLevel(ABC):
                 gradient(self.gradient_height, self.gradient_skips),
                 scroll_x,
                 self.draw_v,
-                self.gradient_color
+                self.gradient_color,
             )
         if self.check_anyone_alive():
             pyxel.camera()

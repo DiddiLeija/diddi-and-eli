@@ -3,13 +3,19 @@ import pyxel
 from .characters import BaseLevel
 from .tools import draw_text, get_savedata
 
+
 class Menu(BaseLevel):
     "Menu window."
+
     saved_stage = ""
     stage = "main"
     player_choice = 0
     enemy_template = dict()
-    player_choice_text = {0: "[1] Single (Diddi)", 1: "[2] Single (Eli)", 2: "[3] Multiplayer"}
+    player_choice_text = {
+        0: "[1] Single (Diddi)",
+        1: "[2] Single (Eli)",
+        2: "[3] Multiplayer",
+    }
     music_vol = 5
     reset_coin_counter = True
     gen_clouds = False
@@ -19,7 +25,7 @@ class Menu(BaseLevel):
         BaseLevel.__init__(self, player_choice)
         # and here comes the funny part: get and save level data
         self.update_saved_stage()
-    
+
     def update_saved_stage(self):
         self.saved_stage = get_savedata()
 
@@ -82,10 +88,9 @@ class Menu(BaseLevel):
             draw_text("== Select mode ==", 23, 33)
             for k, v in self.player_choice_text.items():
                 if k == self.player_choice:
-                    draw_text(v + " <-", 23, 45+(8*k))
+                    draw_text(v + " <-", 23, 45 + (8 * k))
                 else:
-                    draw_text(v, 23, 45+(8*k))
+                    draw_text(v, 23, 45 + (8 * k))
             draw_text("- Press R to return -", 23, 82)
         # Always remind the users how to quit
         draw_text("- Press Q to quit -", 23, 90)
-

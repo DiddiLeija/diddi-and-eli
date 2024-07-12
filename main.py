@@ -13,13 +13,14 @@ class Main:
     Main object for the game, though most of the interface
     is operated by the src-stored objects.
     """
+
     situation = None
 
     def __init__(self):
         pyxel.load("resource.pyxres")
         self.situation = init_class(stages_list["menu"], 0)
         pyxel.run(self.update, self.draw)
-    
+
     def update(self):
         self.situation.update()
         # If the situation "ends", jump into the next one
@@ -29,8 +30,8 @@ class Main:
             if self.situation.nextlevel not in ("menu", "death"):
                 write_savedata({"level": self.situation.nextlevel})
             self.situation = init_class(stages_list[self.situation.nextlevel], tmp)
-            del(tmp)  # we have to remove 'tmp' ASAP
-    
+            del tmp  # we have to remove 'tmp' ASAP
+
     def draw(self):
         self.situation.draw()
         draw_stats(
@@ -38,7 +39,7 @@ class Main:
             self.situation.draw_v,
             self.situation.player_choice,
             self.situation.get_coin_count(),
-            str(type(self.situation))
+            str(type(self.situation)),
         )
 
 
