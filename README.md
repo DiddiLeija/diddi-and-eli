@@ -10,20 +10,30 @@
 
 > **Diddi and Eli: a platformer game with scaling challenges.**
 
-## How to play
+## Storyline
+
+> Diddi and Eli are warriors serving Lady Alix. The Scaler, a powerful
+> lord of darkness, is menacing Lady Alix' domains, so she needs Diddi
+> and Eli to find the Scaler before he invades the land!
+
+To win, you have to clear five courses, each one harder than the previous.
+Once you reach the final course, defeat the evil **Scaler** to win!
+
+You can either play as Diddi (player 1), Ei (player 2) or use a local
+co-op mode (2 players using the same device, Diddi & Eli).
+
+## Installation
 
 Using Python `>=3.7` and [Pyxel](https://github.com/kitao/pyxel) at a
 [recommended version](./requirements.txt), clone or download this
 repository and run `main.py` to start the game.
 
-To win, you'll have to clear five courses, each one harder than the previous
-one. Once you reach the final course, defeat the evil **Scaler** to win!
-
 ## Game controls
 
 - Menu controls
-  - 1: Start game.
-  - 2: Select player mode.
+  - 1: Start new game.
+  - 2: Start from checkpoint.
+  - 3: Select player mode.
 - In-game controls (player 1)
   - W: Jump
   - A: Move to the left
@@ -37,11 +47,11 @@ one. Once you reach the final course, defeat the evil **Scaler** to win!
 
 ## Credits
 
-This game is a successor to one of my previous titles,
-["Abandon the ship!"](https://github.com/DiddiLeija/abandon-the-ship), which was
+This game is a successor to my one-shot previous title,
+["Abandon the ship!"](https://github.com/DiddiLeija/abandon-the-ship), which was loosely
 based on a platformer example bundled within the [Pyxel](https://github.com/kitao/pyxel)
 project.
 
-Thanks to all those who contributed with feedback when I was developing the game.
+Thanks to all those who contributed with feedback when I was developing the game!
 
 Copyright (c) 2023 Diego Ramirez.
