@@ -361,3 +361,26 @@ class Four(BaseLevel):
     use_gradient = True
     gradient_color = 12
     gradient_height = 129
+
+
+class Five(BaseLevel):
+    """
+    Level Five: Bricklot Fortress
+
+    The home fortress of the Scaler. Diddi and Eli
+    must face the monster before it fully begins with
+    his conquest plans.
+
+    Mobs (): Robots (), Onions ().
+    """
+
+    draw_v = 512
+    enemy_template = dict()
+    coin_template = []
+    bgcolor = 0  # Using black just once
+    acceptable_clouds = []  # indeed, we don't want clouds here
+    finished_next = "final"
+    nextlevel = "final"
+    use_gradient = True
+    gradient_color = 13
+    gradient_height = 30

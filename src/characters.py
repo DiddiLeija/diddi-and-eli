@@ -417,6 +417,30 @@ class Slimehorn4(SlimehornBase):
     imgs = [(40, 56), (56, 56)]
 
 
+# === The Scaler ===
+
+
+class Scaler:
+    """
+    The Scaler, the game's final boss, is a
+    unique mob class with unique patterns. It is
+    intended to shoot bullets itself, jump, run around,
+    and have a better health bar than regular mobs.
+    """
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def update(self):
+        # TODO
+        pass
+
+    def draw(self):
+        # TODO
+        pass
+
+
 # === Coins/bullets ===
 
 
