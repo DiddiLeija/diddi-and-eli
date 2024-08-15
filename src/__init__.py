@@ -12,7 +12,7 @@ stages_list = {
     "three": levels.Three,
     "four": levels.Four,
     "preboss": scenes.PreBoss,
-    "five": None,  # TODO - level 5/final
+    "five": levels.Five,
     "final": scenes.Final,
     "menu": menu.Menu,
     "death": scenes.DeathSequence,
