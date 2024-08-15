@@ -44,6 +44,6 @@ class Main:
 
 
 if __name__ == "__main__":
-    pyxel.init(128, 144, "Diddi and Eli", capture_sec=120)
+    pyxel.init(128, 144, title="Diddi and Eli", capture_sec=120)
     pyxel.fullscreen(True)  # why not? :P
     Main()
