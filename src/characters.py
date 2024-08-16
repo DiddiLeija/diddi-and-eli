@@ -241,7 +241,7 @@ class Player1:
         if self.x < scroll_x:
             self.x = scroll_x
         if self.y < self.yzero:
-            self.y = 0
+            self.y = self.yzero
         self.dx = int(self.dx * 0.8)
         self.is_falling = self.y > self.prev_y
         self.already_jumping = self.prev_y > self.y
