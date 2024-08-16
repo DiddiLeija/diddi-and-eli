@@ -34,7 +34,6 @@ class Main:
             if self.situation.nextlevel not in ("menu", "death"):
                 savedata_fix("level", self.situation.nextlevel)
                 if type(self.situation).__name__.lower() in POSSIBLE_LEVELS and self.situation.check_anyone_alive:
-                    print("true")
                     savedata_fix("saved_coins", self.situation.get_coin_count())
             if not isinstance(self.situation, BaseScene):
                 coin_reset = get_savedata()["saved_coins"]
@@ -43,7 +42,7 @@ class Main:
                     coin_reset = 0
             self.situation = init_class(stages_list[self.situation.nextlevel], tmp)
             self.situation.restore_coins(coin_reset)
-            del tmp  # we have to remove 'tmp' ASAP
+            del tmp, coin_reset
 
     def draw(self):
         self.situation.draw()
