@@ -378,7 +378,7 @@ class Five(BaseLevel):
     enemy_template = dict()
     coin_template = []
     bgcolor = 0  # Using black just once
-    acceptable_clouds = []  # indeed, we don't want clouds here
+    acceptable_clouds = [(32, 0)]  # indeed, we don't want clouds here
     finished_next = "final"
     nextlevel = "final"
     use_gradient = True
