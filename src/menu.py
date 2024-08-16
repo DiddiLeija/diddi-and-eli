@@ -17,7 +17,7 @@ class Menu(BaseLevel):
         2: "[3] Multiplayer",
     }
     music_vol = 5
-    reset_coin_counter = True
+    # reset_coin_counter = True
     gen_clouds = False
     saved_available = False
 
@@ -50,6 +50,7 @@ class Menu(BaseLevel):
             # Just get into the next window
             self.finished = True
             self.nextlevel = "intro"
+            self.restore_coins(0)
         elif self.stage == "startsaved":
             # Move to the saved window
             self.finished = True

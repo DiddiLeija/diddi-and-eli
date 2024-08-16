@@ -672,6 +672,11 @@ class BaseLevel(ABC):
         "just return the coin count for further usage."
         return TOTAL_COINS
 
+    def restore_coins(self, amount=0):
+        "restore a deleted coin count or fully reset it."
+        global TOTAL_COINS
+        TOTAL_COINS = amount
+
     def get_scroll_x(self):
         "return scroll_x for external purposes."
         # TODO: get rid of this workaround

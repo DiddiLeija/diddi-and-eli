@@ -18,8 +18,8 @@ def format(session: nox.Session):
     "Format the codebase."
     session.install("-r", "requirements.txt")
     session.install("-r", "test-requirements.txt")
-    session.run("ruff", "check", *files, "--fix")  # TODO: ignore certain rules?
-    session.run("ruff", "format", *files)  # a reinforcement to 'ruff check --fix'
+    session.run("ruff", "check", *files, "--fix")
+    session.run("ruff", "format", *files)  # an important reinforcement to 'ruff check --fix'
 
 
 @nox.session
@@ -27,13 +27,13 @@ def lint(session: nox.Session):
     "Lint the codebase."
     session.install("-r", "requirements.txt")
     session.install("-r", "test-requirements.txt")
-    session.run("ruff", "check", *files)  # TODO: ignore certain rules?
+    session.run("ruff", "check", *files)
 
 
 @nox.session(name="reset-savedata")
 def reset_savedata(session: nox.Session):
     "Clean up 'savedata.json', which should not have any contents, use it carefully."
-    new_data = '{"level": "intro"}'
+    new_data = '{"level": "intro", "saved_coins": 0}'
     session.run(
         "python",
         "-c",

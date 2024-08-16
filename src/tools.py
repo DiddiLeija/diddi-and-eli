@@ -18,11 +18,18 @@ POSSIBLE_LEVELS = (
 )
 
 
-def check_savedata(data):
-    "Internal function to avoid warped/incorrect save data."
-    if data["level"] not in POSSIBLE_LEVELS:
-        data["level"] = "intro"
-    return data
+class InternalOperationCrash(Exception):
+    """
+    custom exception for internal errors with internal stuff
+    that could only crash under testing circumstances.
+    """
+
+
+def report_crash(opname, original):
+    raise InternalOperationCrash(
+        f"Error: Internal operation '{opname}' showed unexpected behavior. "
+        f"If you are not testing this operation, please report this error. ('{original}')"
+    )
 
 
 def draw_text(text, x, y, *, maincol=7, subcol=1):
@@ -37,6 +44,13 @@ def init_class(obj, popt):
     return obj(popt)
 
 
+def check_savedata(data):
+    "Internal function to avoid warped/incorrect save data."
+    if data["level"] not in POSSIBLE_LEVELS:
+        data["level"] = "intro"
+    return data
+
+
 def get_savedata():
     "Read and return the save data."
     with io.open("savedata.json", "r") as js:
@@ -45,24 +59,32 @@ def get_savedata():
 
 
 def write_savedata(data):
-    "Write the save data from scratch."
+    """
+    Lower-level tool to write the save data from scratch.
+    'savedata_fix' and 'savedata_fixes' should be used at
+    upper levels (e.g. 'main.py').
+    """
     with io.open("savedata.json", "w") as js:
         new_data = check_savedata(data)
         js.write(json.dumps(new_data, sort_keys=True))
 
 
-class InternalOperationCrash(Exception):
-    """
-    custom exception for internal errors with internal stuff
-    that could only crash under testing circumstances.
-    """
+def savedata_fix(key, value):
+    "Modify a single save data key."
+    data = get_savedata()
+    data[key] = value
+    data = check_savedata(data)
+    write_savedata(data)
 
 
-def report_crash(opname, original):
-    raise InternalOperationCrash(
-        f"Error: Internal operation '{opname}' showed unexpected behavior. "
-        f"If you are not testing this operation, please report this error. ('{original}')"
-    )
+def savedata_fixes(fixes: dict) -> None:
+    "run 'savedata_fix' for each key on a given dict."
+    for k, v in fixes.items():
+        try:
+            savedata_fix(k, v)
+        except Exception:
+            # TODO: warn/report about this crash
+            pass
 
 
 def gradient(height, skips):
