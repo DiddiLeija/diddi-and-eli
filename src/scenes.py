@@ -42,7 +42,7 @@ class BaseScene(BaseLevel):
         BaseLevel.__init__(self, player_choice)
 
     def create_characters(self):
-        # NOTE: No Player classes, please!
+        # no Player classes, please!
         pass
 
     def update(self):
@@ -83,7 +83,7 @@ class DeathSequence(BaseLevel):
 
     def __init__(self, player_choice):
         self.player_choice = player_choice
-        pyxel.camera(0, 0)  # NOTE: draw_v is not needed here
+        pyxel.camera(0, 0)  # draw_v is not needed here
         pyxel.stop()
 
     def update(self):

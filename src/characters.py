@@ -67,7 +67,6 @@ def adjust_x(real_x):
 
 
 def get_tile(tile_x, tile_y):
-    # print(tile_x, tile_y)
     return pyxel.tilemaps[1].pget(tile_x, tile_y)
 
 
@@ -212,7 +211,6 @@ class Player1:
             # NOTE: Why not putting 'self.check_bullets' after this block?
             #       Well, what if, during multiplayer mode, one of the character
             #       shoots a bullet and dies before such bullets finish their journey?
-            # TODO: Reconsider the above statement??
             return
         global scroll_x
         self.prev_y = self.y
@@ -234,7 +232,7 @@ class Player1:
         self.dy = min(self.dy + 1, 3)
         if pyxel.btnp(self.key_up) and not self.is_falling and not self.already_jumping:
             # Jump (instead of the fly-ish mechanics from previous games)
-            self.dy = -8  # TODO: Adjust this in order to achieve realistic jumps
+            self.dy = -8
             self.already_jumping = True
         # Now operate the movement
         self.x, self.y, self.dx, self.dy = push_back(self.x, self.y, self.dx, self.dy)
@@ -484,7 +482,6 @@ class Coin:
         self.alive = True
 
     def update(self):
-        # We won't do anything at all here!
         pass
 
     def draw(self):
@@ -632,7 +629,6 @@ class BaseLevel(ABC):
         for x in range(left_x, right_x + 1):
             for y in range(int(self.draw_v / 8), int(self.draw_v / 8) + 16):
                 key = f"{x*8} {y*8}"
-                # print(key)
                 if key in self.already_spawned:
                     continue
                 if key in self.enemy_template.keys():
@@ -660,9 +656,6 @@ class BaseLevel(ABC):
     def generate_clouds(self, right_x):
         if not self.gen_clouds or random.randint(0, self.cloud_freq) != 1:
             return
-        # if (right_x in range(self.already_spawned_cloud+1, self.already_spawned_cloud+16)):
-        #     print("condition b")
-        #     return
         draw_comb = random.choice(self.acceptable_clouds)
         selected_y = random.randint(self.draw_v, self.draw_v + 90)
         self.clouds.append(Cloud(right_x, selected_y, draw_comb[0], draw_comb[1]))
@@ -686,7 +679,6 @@ class BaseLevel(ABC):
         "Some update actions that should happen in (almost) every instance."
         global TOTAL_COINS
         for i in self.clouds:
-            # this is a rutinary task, so we don't need to give it conditions.
             i.update()
         for p in self.player:
             p.update()

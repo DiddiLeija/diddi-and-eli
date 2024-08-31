@@ -83,9 +83,8 @@ class One(BaseLevel):
     ]
     ending_button = Button(1064, 96)
     finished_next = "two"
-    # this is a workaround to <https://github.com/DiddiLeija/diddi-and-eli/issues/5>
-    # NOTE: The same workaround is present in all the levels stored here...
-    # TODO: Safely remove this workaround at some point?
+    # This is a workaround to <https://github.com/DiddiLeija/diddi-and-eli/issues/5>,
+    # and the same workaround is present in all the levels here...
     nextlevel = "two"
     use_gradient = True
     gradient_height = 16
@@ -157,7 +156,7 @@ class Two(BaseLevel):
         "1008 160",
     ]
     bgcolor = 5
-    acceptable_clouds = [(16, 16)]  # Only one kind of clouds
+    acceptable_clouds = [(16, 16)]
     ending_button = Button(1192, 192)
     finished_next = "three"
     nextlevel = "three"
@@ -378,7 +377,7 @@ class Five(BaseLevel):
     enemy_template = dict()
     coin_template = []
     bgcolor = 0  # Using black just once
-    acceptable_clouds = [(32, 0)]  # indeed, we don't want clouds here
+    acceptable_clouds = [(32, 0)]
     finished_next = "final"
     nextlevel = "final"
     use_gradient = True

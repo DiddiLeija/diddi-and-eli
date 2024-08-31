@@ -5,7 +5,6 @@ import json
 import pyxel
 
 POSSIBLE_LEVELS = (
-    # a list of allowed level names.
     # NOTE: "menu" or "death" should not be allowed as a saved level.
     "intro",
     "one",

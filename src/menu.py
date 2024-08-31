@@ -17,13 +17,11 @@ class Menu(BaseLevel):
         2: "[3] Multiplayer",
     }
     music_vol = 5
-    # reset_coin_counter = True
     gen_clouds = False
     saved_available = False
 
     def __init__(self, player_choice=None):
         BaseLevel.__init__(self, player_choice)
-        # and here comes the funny part: get and save level data
         self.update_saved_stage()
 
     def update_saved_stage(self):
@@ -73,7 +71,7 @@ class Menu(BaseLevel):
         "Pyxel-like 'draw' function."
         # Clear the screen
         pyxel.cls(0)
-        pyxel.camera(0, self.draw_v)  # TODO: Is this a good idea?
+        pyxel.camera(0, self.draw_v)
         # NOTE: Tilemap 0 is the menu tilemap, ok?
         pyxel.bltm(0, 0, 0, 0, 0, 128, 128)
         # Draw a "menu window"
