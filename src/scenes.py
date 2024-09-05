@@ -29,7 +29,7 @@ from .tools import draw_text, get_savedata, get_player_names
 
 class BaseScene(BaseLevel):
     "A subclass of levels, that focus on dialogs rather than real gameplay"
-    music_vol = 5  # TODO: Don't use the same music than the Menu, compose a new track instead!
+    music_vol = 6
     scenes = list()  # list of elements to show for each "click" in the story
     sno = 0  # scene number, increases on each click
     boxcol1 = 0  # Color of the dialog box (interior)
