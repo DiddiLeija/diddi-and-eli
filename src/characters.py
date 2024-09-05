@@ -505,6 +505,7 @@ class Cloud:
         self.draw_y = draw_y
         self.alive = True
         self.speed = random.randint(2, 3)
+        self.size = random.choice([1, 1.5, 2])
 
     def update(self):
         self.x -= self.speed
@@ -515,7 +516,7 @@ class Cloud:
         if not self.alive:
             return
         # NOTE: Clouds are all stored at resource image 1, take that in count!
-        pyxel.blt(self.x, self.y, 1, self.draw_x, self.draw_y, 16, 16, 0)
+        pyxel.blt(self.x, self.y, 1, self.draw_x, self.draw_y, 16, 16, 0, scale=self.size)
 
 
 # === Button ===
