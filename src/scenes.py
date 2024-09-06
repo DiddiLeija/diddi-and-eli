@@ -64,6 +64,7 @@ class BaseScene(BaseLevel):
     
     def draw(self):
         "draw function."
+        pyxel.camera()
         pyxel.cls(self.bgcolor)
         st = self.scenes[self.sno]
         pyxel.bltm(0, 0, 2, st[0], st[1], 128, 128, 0)
